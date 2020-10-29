@@ -22,7 +22,7 @@
 * Version      : 1.2.0
 * Device(s)    : R5F51306AxFK
 * Description  : This file implements interrupt setting.
-* Creation Date: 2020-10-23
+* Creation Date: 2020-10-29
 ***********************************************************************************************************************/
 
 #ifndef SMC_INTERRUPT_H

@@ -18,10 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_smc_interrupt.c
-* Version      : 1.2.0
+* File Name    : Config_PORT.c
+* Version      : 2.1.1
 * Device(s)    : R5F51306AxFK
-* Description  : This file implements interrupt setting.
+* Description  : This file implements device driver for Config_PORT.
 * Creation Date: 2020-10-29
 ***********************************************************************************************************************/
 
@@ -35,7 +35,7 @@ Pragma directive
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "r_smc_interrupt.h"
+#include "Config_PORT.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -47,15 +47,27 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Interrupt_Create
-* Description  : This function Used to set the fast interrupt or group interrupt 
+* Function Name: R_Config_PORT_Create
+* Description  : This function initializes the PORT
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Interrupt_Create(void)
+void R_Config_PORT_Create(void)
 {
-    /* No fast interrupt and group settings have been configured in the Interrupts tab. */
+    /* Set PORT5 registers */
+    PORT5.PODR.BYTE = _00_Pm5_OUTPUT_0;
+    PORT5.DSCR.BYTE = _00_Pm5_HIDRV_OFF;
+    PORT5.PMR.BYTE = _00_Pm5_PIN_GPIO;
+    PORT5.PDR.BYTE = _20_Pm5_MODE_OUTPUT | _CF_PDR5_DEFAULT;
+
+    /* Set PORTH registers */
+    PORTH.PODR.BYTE = _00_Pm1_OUTPUT_0 | _00_Pm3_OUTPUT_0;
+    PORTH.DSCR.BYTE = _00_Pm1_HIDRV_OFF | _00_Pm3_HIDRV_OFF;
+    PORTH.PMR.BYTE = _00_Pm1_PIN_GPIO | _00_Pm3_PIN_GPIO;
+    PORTH.PDR.BYTE = _02_Pm1_MODE_OUTPUT | _08_Pm3_MODE_OUTPUT | _F0_PDRH_DEFAULT;
+
+    R_Config_PORT_Create_UserInit();
 }
 
 /* Start user code for adding. Do not edit comment generated here */

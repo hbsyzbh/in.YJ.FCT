@@ -22,7 +22,7 @@
 * Version      : 1.9.1
 * Device(s)    : R5F51306AxFK
 * Description  : This file implements device driver for UART3.
-* Creation Date: 2020-10-23
+* Creation Date: 2020-10-29
 ***********************************************************************************************************************/
 
 #ifndef CFG_UART3_H

@@ -18,45 +18,56 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_smc_interrupt.c
-* Version      : 1.2.0
+* File Name    : Config_RTC.h
+* Version      : 1.5.3
 * Device(s)    : R5F51306AxFK
-* Description  : This file implements interrupt setting.
+* Description  : This file implements device driver for Config_RTC.
 * Creation Date: 2020-10-29
 ***********************************************************************************************************************/
 
-/***********************************************************************************************************************
-Pragma directive
-***********************************************************************************************************************/
-/* Start user code for pragma. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
+#ifndef CFG_Config_RTC_H
+#define CFG_Config_RTC_H
 
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
-#include "r_cg_macrodriver.h"
-#include "r_smc_interrupt.h"
-/* Start user code for include. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
-#include "r_cg_userdefine.h"
+#include "r_cg_rtc.h"
 
 /***********************************************************************************************************************
-Global variables and functions
+Macro definitions (Register bit)
 ***********************************************************************************************************************/
-/* Start user code for global. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Interrupt_Create
-* Description  : This function Used to set the fast interrupt or group interrupt 
-* Arguments    : None
-* Return Value : None
+Macro definitions
+***********************************************************************************************************************/
+#define _04_FOUR_READ_COUNT                         (0x04U)/* Perform 4 read operations */
+#define _03D1_CGC_SUBSTPWT_WAIT                     (0x03D1U) /* Wait time for 5 sub clock cycles */
+#define _0030D401_RTC_SUBOSCWT_WAIT                 (0x0030D401UL) /* Wait time for sub clock stable*/
+#define _0495_RTC_SUB_6_CYCLE_WAIT                  (0x0495U)
+#define _000186A1_RTC_1_64_SEC_CYCLE                (0x000186A1UL)
+#define _00_RTC_COUNT_SECOND_VALUE                  (0x00U)
+#define _00_RTC_COUNT_MINUTE_VALUE                  (0x00U)
+#define _00_RTC_COUNT_HOUR_VALUE                    (0x00U)
+#define _06_RTC_COUNT_WEEK_VALUE                    (0x06U)
+#define _01_RTC_COUNT_DAY_VALUE                     (0x01U)
+#define _01_RTC_COUNT_MONTH_VALUE                   (0x01U)
+#define _0000_RTC_COUNT_YEAR_VALUE                  (0x0000U)
+
+/***********************************************************************************************************************
+Typedef definitions
 ***********************************************************************************************************************/
 
-void R_Interrupt_Create(void)
-{
-    /* No fast interrupt and group settings have been configured in the Interrupts tab. */
-}
-
-/* Start user code for adding. Do not edit comment generated here */
+/***********************************************************************************************************************
+Global functions
+***********************************************************************************************************************/
+void R_Config_RTC_Create(void);
+void R_Config_RTC_Start(void);
+void R_Config_RTC_Stop(void);
+void R_Config_RTC_Restart(rtc_calendarcounter_value_t counter_write_val);
+void R_Config_RTC_Get_CalendarCounterValue(rtc_calendarcounter_value_t * const counter_read_val);
+void R_Config_RTC_Set_CalendarCounterValue(rtc_calendarcounter_value_t counter_write_val);
+void R_Config_RTC_Create_UserInit(void);
+/* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
+#endif
+

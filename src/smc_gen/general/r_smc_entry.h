@@ -22,7 +22,7 @@
 * Version      : 1.1.102
 * Device(s)    : R5F51306AxFK
 * Description  : SMC platform header file.
-* Creation Date: 2020-10-23
+* Creation Date: 2020-10-29
 ***********************************************************************************************************************/
 
 #ifndef SMC_ENTRY_H
@@ -39,6 +39,8 @@ Includes
 #include "SPI.h"
 #include "UART2.h"
 #include "UART3.h"
+#include "Config_RTC.h"
+#include "Config_PORT.h"
 
 /***********************************************************************************************************************
 Macro definitions (Register bit)

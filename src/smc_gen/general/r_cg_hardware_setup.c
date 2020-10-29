@@ -22,7 +22,7 @@
 * Version      : 1.1.102
 * Device(s)    : R5F51306AxFK
 * Description  : Initialization file for code generation configurations.
-* Creation Date: 2020-10-23
+* Creation Date: 2020-10-29
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -42,6 +42,8 @@ Includes
 #include "SPI.h"
 #include "UART2.h"
 #include "UART3.h"
+#include "Config_RTC.h"
+#include "Config_PORT.h"
 #include "r_smc_cgc.h"
 #include "r_smc_interrupt.h"
 /* Start user code for include. Do not edit comment generated here */
@@ -90,6 +92,7 @@ void R_Systeminit(void)
     R_CGC_Create();
 
     /* Set peripheral settings */
+    R_Config_PORT_Create();
     R_Config_S12AD0_Create();
     R_Config_RIIC0_Create();
     R_UART_Create();
@@ -97,6 +100,7 @@ void R_Systeminit(void)
     R_SPI_Create();
     R_UART2_Create();
     R_UART3_Create();
+    R_Config_RTC_Create();
 
     /* Register undefined interrupt */
     R_BSP_InterruptWrite(BSP_INT_SRC_UNDEFINED_INTERRUPT,(bsp_int_cb_t)r_undefined_exception);

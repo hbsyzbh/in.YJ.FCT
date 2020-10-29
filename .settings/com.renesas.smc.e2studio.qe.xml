@@ -72,15 +72,18 @@
         <Setting id="FCLK" value="32000.0"/>
         <Setting id="SysCLKSrc" value="1.0"/>
         <Setting id="ExtCLK" value="8000.0"/>
+        <Setting id="RtcCLK" value="32.768"/>
     </Segment>
     <Segment id="Component">
         <Setting id="SPI2" value="CG"/>
         <Setting id="r_bsp" value="FIT"/>
+        <Setting id="Config_RTC" value="CG"/>
         <Setting id="Config_S12AD0" value="CG"/>
         <Setting id="Config_RIIC0" value="CG"/>
         <Setting id="UART2" value="CG"/>
         <Setting id="UART" value="CG"/>
         <Setting id="UART3" value="CG"/>
+        <Setting id="Config_PORT" value="CG"/>
         <Setting id="SPI" value="CG"/>
     </Segment>
 </QE>

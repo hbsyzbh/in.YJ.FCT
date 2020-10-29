@@ -18,45 +18,38 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_smc_interrupt.c
-* Version      : 1.2.0
+* File Name    : Config_PORT.h
+* Version      : 2.1.1
 * Device(s)    : R5F51306AxFK
-* Description  : This file implements interrupt setting.
+* Description  : This file implements device driver for Config_PORT.
 * Creation Date: 2020-10-29
 ***********************************************************************************************************************/
 
-/***********************************************************************************************************************
-Pragma directive
-***********************************************************************************************************************/
-/* Start user code for pragma. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
+#ifndef CFG_Config_PORT_H
+#define CFG_Config_PORT_H
 
 /***********************************************************************************************************************
 Includes
 ***********************************************************************************************************************/
-#include "r_cg_macrodriver.h"
-#include "r_smc_interrupt.h"
-/* Start user code for include. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
-#include "r_cg_userdefine.h"
+#include "r_cg_port.h"
 
 /***********************************************************************************************************************
-Global variables and functions
+Macro definitions (Register bit)
 ***********************************************************************************************************************/
-/* Start user code for global. Do not edit comment generated here */
-/* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Interrupt_Create
-* Description  : This function Used to set the fast interrupt or group interrupt 
-* Arguments    : None
-* Return Value : None
+Macro definitions
 ***********************************************************************************************************************/
 
-void R_Interrupt_Create(void)
-{
-    /* No fast interrupt and group settings have been configured in the Interrupts tab. */
-}
+/***********************************************************************************************************************
+Typedef definitions
+***********************************************************************************************************************/
 
-/* Start user code for adding. Do not edit comment generated here */
+/***********************************************************************************************************************
+Global functions
+***********************************************************************************************************************/
+void R_Config_PORT_Create(void);
+void R_Config_PORT_Create_UserInit(void);
+/* Start user code for function. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
+#endif

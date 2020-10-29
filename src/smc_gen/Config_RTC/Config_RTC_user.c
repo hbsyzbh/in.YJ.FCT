@@ -18,10 +18,10 @@
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
-* File Name    : r_smc_interrupt.c
-* Version      : 1.2.0
+* File Name    : Config_RTC_user.c
+* Version      : 1.5.3
 * Device(s)    : R5F51306AxFK
-* Description  : This file implements interrupt setting.
+* Description  : This file implements device driver for Config_RTC.
 * Creation Date: 2020-10-29
 ***********************************************************************************************************************/
 
@@ -35,7 +35,7 @@ Pragma directive
 Includes
 ***********************************************************************************************************************/
 #include "r_cg_macrodriver.h"
-#include "r_smc_interrupt.h"
+#include "Config_RTC.h"
 /* Start user code for include. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 #include "r_cg_userdefine.h"
@@ -47,16 +47,19 @@ Global variables and functions
 /* End user code. Do not edit comment generated here */
 
 /***********************************************************************************************************************
-* Function Name: R_Interrupt_Create
-* Description  : This function Used to set the fast interrupt or group interrupt 
+* Function Name: R_Config_RTC_Create_UserInit
+* Description  : This function add user code after initializing RTC module
 * Arguments    : None
 * Return Value : None
 ***********************************************************************************************************************/
 
-void R_Interrupt_Create(void)
+void R_Config_RTC_Create_UserInit(void)
 {
-    /* No fast interrupt and group settings have been configured in the Interrupts tab. */
+    /* Start user code for code init. Do not edit comment generated here */
+    /* End user code. Do not edit comment generated here */
 }
 
 /* Start user code for adding. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
+
+

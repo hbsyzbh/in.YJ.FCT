@@ -22,7 +22,7 @@
 * Version      : 1.9.1
 * Device(s)    : R5F51306AxFK
 * Description  : This file implements device driver for UART.
-* Creation Date: 2020-10-23
+* Creation Date: 2020-10-29
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -77,11 +77,11 @@ void R_UART_Create(void)
     SCI1.SPMR.BYTE = _00_SCI_RTS | _00_SCI_CLOCK_NOT_INVERTED | _00_SCI_CLOCK_NOT_DELAYED;
 
     /* Set control registers */
-    SCI1.SMR.BYTE = _02_SCI_CLOCK_PCLK_16 | _00_SCI_MULTI_PROCESSOR_DISABLE | _00_SCI_STOP_1 | 
-                    _00_SCI_PARITY_DISABLE | _00_SCI_DATA_LENGTH_8 | _00_SCI_ASYNCHRONOUS_OR_I2C_MODE;
+    SCI1.SMR.BYTE = _01_SCI_CLOCK_PCLK_4 | _00_SCI_MULTI_PROCESSOR_DISABLE | _00_SCI_STOP_1 | _00_SCI_PARITY_DISABLE | 
+                    _00_SCI_DATA_LENGTH_8 | _00_SCI_ASYNCHRONOUS_OR_I2C_MODE;
     SCI1.SCMR.BYTE = _00_SCI_SERIAL_MODE | _00_SCI_DATA_INVERT_NONE | _00_SCI_DATA_LSB_FIRST | 
                      _10_SCI_DATA_LENGTH_8_OR_7 | _62_SCI_SCMR_DEFAULT;
-    SCI1.SEMR.BYTE = _00_SCI_BIT_MODULATION_DISABLE | _10_SCI_8_BASE_CLOCK | _00_SCI_NOISE_FILTER_DISABLE | 
+    SCI1.SEMR.BYTE = _00_SCI_BIT_MODULATION_DISABLE | _00_SCI_16_BASE_CLOCK | _00_SCI_NOISE_FILTER_DISABLE | 
                      _00_SCI_BAUDRATE_SINGLE | _00_SCI_LOW_LEVEL_START_BIT;
 
     /* Set bit rate */
