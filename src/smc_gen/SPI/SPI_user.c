@@ -19,7 +19,7 @@
 
 /***********************************************************************************************************************
 * File Name    : SPI_user.c
-* Version      : 1.9.1
+* Version      : 1.7.1
 * Device(s)    : R5F51306AxFK
 * Description  : This file implements device driver for SPI.
 * Creation Date: 2020-10-30
@@ -43,11 +43,11 @@ Includes
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
-extern volatile uint16_t * gp_rspi0_tx_address;              /* RSPI0 transmit buffer address */
-extern volatile uint16_t g_rspi0_tx_count;                   /* RSPI0 transmit data number */
-extern volatile uint16_t * gp_rspi0_rx_address;              /* RSPI0 receive buffer address */
-extern volatile uint16_t g_rspi0_rx_count;                   /* RSPI0 receive data number */
-extern volatile uint16_t g_rspi0_rx_length;                  /* RSPI0 receive data length */
+extern volatile uint16_t * gp_rspi0_tx_address;            /* RSPI0 transmit buffer address */
+extern volatile uint16_t g_rspi0_tx_count;                 /* RSPI0 transmit data number */
+extern volatile uint16_t * gp_rspi0_rx_address;            /* RSPI0 receive buffer address */
+extern volatile uint16_t g_rspi0_rx_count;                 /* RSPI0 receive data number */
+extern volatile uint16_t g_rspi0_rx_length;                /* RSPI0 receive data length */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -106,7 +106,7 @@ void r_SPI_transmit_interrupt(void)
 void r_SPI_receive_interrupt(void)
 {
     uint16_t frame_cnt;
-
+    
     for (frame_cnt = 0U; frame_cnt < (_00_RSPI_FRAMES_1 + 1U); frame_cnt++)
     {
         if (g_rspi0_rx_length > g_rspi0_rx_count)
@@ -190,7 +190,6 @@ void r_SPI_idle_interrupt(void)
 static void r_SPI_callback_transmitend(void)
 {
     /* Start user code for r_SPI_callback_transmitend. Do not edit comment generated here */
-	SPI_INT_Done();
     /* End user code. Do not edit comment generated here */
 }
 
@@ -204,7 +203,6 @@ static void r_SPI_callback_transmitend(void)
 static void r_SPI_callback_receiveend(void)
 {
     /* Start user code for r_SPI_callback_receiveend. Do not edit comment generated here */
-	SPI_INT_Done();
     /* End user code. Do not edit comment generated here */
 }
 
@@ -224,4 +222,3 @@ static void r_SPI_callback_error(uint8_t err_type)
 
 /* Start user code for adding. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
-

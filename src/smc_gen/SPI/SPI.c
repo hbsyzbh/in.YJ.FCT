@@ -19,7 +19,7 @@
 
 /***********************************************************************************************************************
 * File Name    : SPI.c
-* Version      : 1.9.1
+* Version      : 1.7.1
 * Device(s)    : R5F51306AxFK
 * Description  : This file implements device driver for SPI.
 * Creation Date: 2020-10-30
@@ -43,11 +43,11 @@ Includes
 /***********************************************************************************************************************
 Global variables and functions
 ***********************************************************************************************************************/
-volatile uint16_t * gp_rspi0_tx_address;              /* RSPI0 transmit buffer address */
-volatile uint16_t g_rspi0_tx_count;                   /* RSPI0 transmit data number */
-volatile uint16_t * gp_rspi0_rx_address;              /* RSPI0 receive buffer address */
-volatile uint16_t g_rspi0_rx_count;                   /* RSPI0 receive data number */
-volatile uint16_t g_rspi0_rx_length;                  /* RSPI0 receive data length */
+volatile uint16_t * gp_rspi0_tx_address;            /* RSPI0 transmit buffer address */
+volatile uint16_t g_rspi0_tx_count;                 /* RSPI0 transmit data number */
+volatile uint16_t * gp_rspi0_rx_address;            /* RSPI0 receive buffer address */
+volatile uint16_t g_rspi0_rx_count;                 /* RSPI0 receive data number */
+volatile uint16_t g_rspi0_rx_length;                /* RSPI0 receive data length */
 /* Start user code for global. Do not edit comment generated here */
 /* End user code. Do not edit comment generated here */
 
@@ -61,7 +61,7 @@ volatile uint16_t g_rspi0_rx_length;                  /* RSPI0 receive data leng
 void R_SPI_Create(void)
 {
     volatile uint8_t spcr_dummy;
-
+    
     /* Disable RSPI interrupts */
     IEN(RSPI0,SPTI0) = 0U;
     IEN(RSPI0,SPRI0) = 0U;
@@ -75,19 +75,21 @@ void R_SPI_Create(void)
     RSPI0.SPCR.BIT.SPE = 0U;
 
     /* Set control registers */
+    RSPI0.SSLP.BYTE = _00_RSPI_SSL2_POLARITY_LOW;
     RSPI0.SPPCR.BYTE = _00_RSPI_MOSI_FIXING_PREV_TRANSFER | _00_RSPI_LOOPBACK_DISABLED | _00_RSPI_LOOPBACK2_DISABLED;
-    RSPI0.SPBR = _0F_RSPI0_DIVISOR;
+    RSPI0.SPBR = _9F_RSPI0_DIVISOR;
     RSPI0.SPDCR.BYTE = _00_RSPI_ACCESS_WORD | _00_RSPI_FRAMES_1;
     RSPI0.SPCKD.BYTE = _00_RSPI_RSPCK_DELAY_1;
     RSPI0.SSLND.BYTE = _00_RSPI_SSL_NEGATION_DELAY_1;
     RSPI0.SPND.BYTE = _00_RSPI_NEXT_ACCESS_DELAY_1;
     RSPI0.SPCR2.BYTE = _00_RSPI_PARITY_DISABLE | _00_RSPI_AUTO_STOP_DISABLED;
     RSPI0.SPSCR.BYTE = _00_RSPI_SEQUENCE_LENGTH_1;
-    RSPI0.SPCMD0.WORD = _0001_RSPI_RSPCK_SAMPLING_EVEN | _0000_RSPI_RSPCK_POLARITY_LOW | _000C_RSPI_BASE_BITRATE_8 | 
-                        _0400_RSPI_DATA_LENGTH_BITS_8 | _0000_RSPI_MSB_FIRST | _0000_RSPI_NEXT_ACCESS_DELAY_DISABLE | 
-                        _0000_RSPI_NEGATION_DELAY_DISABLE | _0000_RSPI_RSPCK_DELAY_DISABLE;
+    RSPI0.SPCMD0.WORD = _0001_RSPI_RSPCK_SAMPLING_EVEN | _0002_RSPI_RSPCK_POLARITY_HIGH | _000C_RSPI_BASE_BITRATE_8 | 
+                        _0020_RSPI_SIGNAL_ASSERT_SSL2 | _0080_RSPI_SSL_KEEP_ENABLE | _0400_RSPI_DATA_LENGTH_BITS_8 | 
+                        _0000_RSPI_MSB_FIRST | _2000_RSPI_NEXT_ACCESS_DELAY_ENABLE | 
+                        _4000_RSPI_NEGATION_DELAY_ENABLE | _8000_RSPI_RSPCK_DELAY_ENABLE;
 
-    /* Set interrupt priority level */
+    /* Set RSPI interrupts priority level */
     IPR(RSPI0,SPTI0) = _0F_RSPI_PRIORITY_LEVEL15;
 
     /* Set RSPCKA pin */
@@ -105,7 +107,12 @@ void R_SPI_Create(void)
     PORTC.ODR1.BYTE &= 0xBFU;
     PORTC.PMR.BYTE |= 0x80U;
 
-    RSPI0.SPCR.BYTE = _01_RSPI_MODE_CLOCK_SYNCHRONOUS | _00_RSPI_FULL_DUPLEX_SYNCHRONOUS | _08_RSPI_MASTER_MODE;
+    /* Set SSLA2 pin */
+    MPC.PA1PFS.BYTE = 0x0DU;
+    PORTA.ODR0.BYTE &= 0xFBU;
+    PORTA.PMR.BYTE |= 0x02U;
+
+    RSPI0.SPCR.BYTE = _00_RSPI_MODE_SPI | _00_RSPI_FULL_DUPLEX_SYNCHRONOUS | _08_RSPI_MASTER_MODE;
     spcr_dummy = RSPI0.SPCR.BYTE;
 
     R_SPI_Create_UserInit();

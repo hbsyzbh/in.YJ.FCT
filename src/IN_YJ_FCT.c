@@ -13,8 +13,8 @@
 
 void checkW25JEDECID(void)
 {
-	unsigned short cmd[4] = {0x9F, 0xAA55, 0x0A50, 0x0A50};
-	unsigned short JedecID[4];
+	unsigned char cmd[4] = {0x9f, 0x9f, 0x9f, 0x9f};
+	unsigned char JedecID[4];
 
 	SPI_INT(cmd, 4, JedecID);
 }

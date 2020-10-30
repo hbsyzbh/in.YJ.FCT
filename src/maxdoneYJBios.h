@@ -14,4 +14,7 @@ void setD8(unsigned char on);
 void setD9(unsigned char on);
 void setD10(unsigned char on);
 
+
+void SPI_INT(unsigned char * const tx_buf, unsigned char tx_num, unsigned char * const rx_buf);
+
 #endif /* MAXDONEYJBIOS_H_ */

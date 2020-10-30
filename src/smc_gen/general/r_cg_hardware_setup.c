@@ -39,11 +39,11 @@ Includes
 #include "Config_RIIC0.h"
 #include "UART.h"
 #include "SPI2.h"
-#include "SPI.h"
 #include "UART2.h"
 #include "UART3.h"
 #include "Config_RTC.h"
 #include "Config_PORT.h"
+#include "SPI.h"
 #include "r_smc_cgc.h"
 #include "r_smc_interrupt.h"
 /* Start user code for include. Do not edit comment generated here */
@@ -97,10 +97,10 @@ void R_Systeminit(void)
     R_Config_RIIC0_Create();
     R_UART_Create();
     R_SPI2_Create();
-    R_SPI_Create();
     R_UART2_Create();
     R_UART3_Create();
     R_Config_RTC_Create();
+    R_SPI_Create();
 
     /* Register undefined interrupt */
     R_BSP_InterruptWrite(BSP_INT_SRC_UNDEFINED_INTERRUPT,(bsp_int_cb_t)r_undefined_exception);

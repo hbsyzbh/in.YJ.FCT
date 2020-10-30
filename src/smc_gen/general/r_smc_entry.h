@@ -36,11 +36,11 @@ Includes
 #include "Config_RIIC0.h"
 #include "UART.h"
 #include "SPI2.h"
-#include "SPI.h"
 #include "UART2.h"
 #include "UART3.h"
 #include "Config_RTC.h"
 #include "Config_PORT.h"
+#include "SPI.h"
 
 /***********************************************************************************************************************
 Macro definitions (Register bit)
