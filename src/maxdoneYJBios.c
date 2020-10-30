@@ -65,13 +65,38 @@ static void W25_WriteEable(void)
 	SPI_INT(cmd, 1, ret);
 }
 
+static unsigned char W25_readStatus(void)
+{
+	unsigned char cmd[2] = { 0x05};
+	unsigned char ret[2] = { 0xFF, 0xFF};
+
+	SPI_INT(cmd, 2, ret);
+
+	return ret[1];
+}
+
+static void checkWriteDone(void)
+{
+	unsigned short times;
+
+	for(times = 0; times < 5000; times++)
+	{
+
+		if((W25_readStatus() & 0x01) == 0x00)
+			return;
+
+		delay(50);
+	}
+}
+
 void W25_Erase(void)
 {
-	unsigned char cmd[1] = { 0x60};
-	unsigned char ret[1] = { 0x60};
+	unsigned char cmd[4] = {0x20, 0, 0, 0};
+	unsigned char ret[4];
 
 	W25_WriteEable();
-	SPI_INT(cmd, 1, ret);
+	SPI_INT(cmd, 4, ret);
+	checkWriteDone();
 }
 
 void W25_read(unsigned int addr, unsigned char *buf, unsigned char len)
@@ -105,6 +130,7 @@ void W25_write(unsigned int addr, unsigned char *buf, unsigned char len)
 
 	W25_WriteEable();
 	SPI_INT(cmd, 4 + len, ret);
+	checkWriteDone();
 }
 
 void checkW25JEDECID(void)

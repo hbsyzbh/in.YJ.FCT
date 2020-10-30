@@ -2373,7 +2373,7 @@
                     <item id="ParityOdd" input="" vlaue="0"/>
                 </option>
                 <option enabled="true" id="Bitrate" selection="Bitrate">
-                    <item id="Bitrate" input="100" vlaue="159"/>
+                    <item id="Bitrate" input="1000" vlaue="15"/>
                 </option>
                 <option enabled="true" id="CKdelay" selection="1RSPCK">
                     <item id="1RSPCK" input="" vlaue="0"/>

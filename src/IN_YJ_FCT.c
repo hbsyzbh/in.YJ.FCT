@@ -23,15 +23,20 @@ unsigned char TestW25(void)
 	W25_Erase();
 	W25_read(0, buf, TST_LEN);
 	for(i = 0; i < TST_LEN; i++) {
-		if(buf[i] != 0xFF) return 1;
+		if(buf[i] != 0xFF){
+			return 1;
+		}
 	}
 
 	W25_write(0, TstStr, TST_LEN);
 	W25_read(0, buf, TST_LEN);
 	for(i = 0; i < TST_LEN; i++) {
-		if(buf[i] != TstStr[i]) return 1;
+		if(buf[i] != TstStr[i]) {
+			return 1;
+		}
 	}
 
+	W25_Erase();
 	return 0;
 }
 
@@ -46,7 +51,7 @@ void main(void)
 	R_UART2_Start();
 	R_UART3_Start();
 
-	TestW25();
+	//TestW25();
 
 	while(1) {
 		setD8(1);
