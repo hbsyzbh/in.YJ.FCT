@@ -351,7 +351,7 @@ Configuration Options
              1 1: 1.90 V
    Default value is 0xFFFFFFFF.
 */
-#define BSP_CFG_OFS1_REG_VALUE  (0xFFFFFFFF) /* Generated value. Do not edit this manually */
+#define BSP_CFG_OFS1_REG_VALUE  (0xFFFFFEFF) /* Generated value. Do not edit this manually */
 
 /* This macro lets other modules no if a RTOS is being used.
    0 = RTOS is not used.

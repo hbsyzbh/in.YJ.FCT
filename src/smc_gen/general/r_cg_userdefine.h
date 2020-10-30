@@ -22,7 +22,7 @@
 * Version      : 1.1.102
 * Device(s)    : R5F51306AxFK
 * Description  : User header file for code generation.
-* Creation Date: 2020-10-29
+* Creation Date: 2020-10-30
 ***********************************************************************************************************************/
 
 #ifndef CG_USER_DEF_H
@@ -56,6 +56,7 @@ Typedef definitions
 Global functions
 ***********************************************************************************************************************/
 /* Start user code for function. Do not edit comment generated here */
+extern void SPI_INT_Done(void);
 /* End user code. Do not edit comment generated here */
 #endif
 

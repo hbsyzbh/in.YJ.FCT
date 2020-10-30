@@ -22,7 +22,7 @@
 * Version      : 1.1.102
 * Device(s)    : R5F51306AxFK
 * Description  : This file declares interrupt handlers.
-* Creation Date: 2020-10-29
+* Creation Date: 2020-10-30
 ***********************************************************************************************************************/
 
 #ifndef INTERRUPT_HANDLERS_H
@@ -55,6 +55,9 @@ void r_SPI_receive_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(RS
 
 /* RSPI0 SPTI0 */
 void r_SPI_transmit_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(RSPI0,SPTI0))));
+
+/* RSPI0 SPII0 */
+void r_SPI_idle_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(RSPI0,SPII0))));
 
 /* S12AD S12ADI0 */
 void r_Config_S12AD0_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(S12AD,S12ADI0))));

@@ -22,7 +22,7 @@
 * Version      : 1.9.1
 * Device(s)    : R5F51306AxFK
 * Description  : This file implements device driver for SPI.
-* Creation Date: 2020-10-29
+* Creation Date: 2020-10-30
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -66,6 +66,7 @@ void R_SPI_Create(void)
     IEN(RSPI0,SPTI0) = 0U;
     IEN(RSPI0,SPRI0) = 0U;
     IEN(RSPI0,SPEI0) = 0U;
+    IEN(RSPI0,SPII0) = 0U;
 
     /* Cancel RSPI0 module stop state */
     MSTP(RSPI0) = 0U;
@@ -74,10 +75,17 @@ void R_SPI_Create(void)
     RSPI0.SPCR.BIT.SPE = 0U;
 
     /* Set control registers */
+    RSPI0.SPPCR.BYTE = _00_RSPI_MOSI_FIXING_PREV_TRANSFER | _00_RSPI_LOOPBACK_DISABLED | _00_RSPI_LOOPBACK2_DISABLED;
+    RSPI0.SPBR = _0F_RSPI0_DIVISOR;
     RSPI0.SPDCR.BYTE = _00_RSPI_ACCESS_WORD | _00_RSPI_FRAMES_1;
-    RSPI0.SPCR2.BYTE = _00_RSPI_PARITY_DISABLE;
-    RSPI0.SPCMD0.WORD = _0001_RSPI_RSPCK_SAMPLING_EVEN | _0000_RSPI_RSPCK_POLARITY_LOW | 
-                        _0C00_RSPI_DATA_LENGTH_BITS_13 | _0000_RSPI_MSB_FIRST;
+    RSPI0.SPCKD.BYTE = _00_RSPI_RSPCK_DELAY_1;
+    RSPI0.SSLND.BYTE = _00_RSPI_SSL_NEGATION_DELAY_1;
+    RSPI0.SPND.BYTE = _00_RSPI_NEXT_ACCESS_DELAY_1;
+    RSPI0.SPCR2.BYTE = _00_RSPI_PARITY_DISABLE | _00_RSPI_AUTO_STOP_DISABLED;
+    RSPI0.SPSCR.BYTE = _00_RSPI_SEQUENCE_LENGTH_1;
+    RSPI0.SPCMD0.WORD = _0001_RSPI_RSPCK_SAMPLING_EVEN | _0000_RSPI_RSPCK_POLARITY_LOW | _000C_RSPI_BASE_BITRATE_8 | 
+                        _0400_RSPI_DATA_LENGTH_BITS_8 | _0000_RSPI_MSB_FIRST | _0000_RSPI_NEXT_ACCESS_DELAY_DISABLE | 
+                        _0000_RSPI_NEGATION_DELAY_DISABLE | _0000_RSPI_RSPCK_DELAY_DISABLE;
 
     /* Set interrupt priority level */
     IPR(RSPI0,SPTI0) = _0F_RSPI_PRIORITY_LEVEL15;
@@ -97,7 +105,7 @@ void R_SPI_Create(void)
     PORTC.ODR1.BYTE &= 0xBFU;
     PORTC.PMR.BYTE |= 0x80U;
 
-    RSPI0.SPCR.BYTE = _01_RSPI_MODE_CLOCK_SYNCHRONOUS | _00_RSPI_FULL_DUPLEX_SYNCHRONOUS | _00_RSPI_SLAVE_MODE;
+    RSPI0.SPCR.BYTE = _01_RSPI_MODE_CLOCK_SYNCHRONOUS | _00_RSPI_FULL_DUPLEX_SYNCHRONOUS | _08_RSPI_MASTER_MODE;
     spcr_dummy = RSPI0.SPCR.BYTE;
 
     R_SPI_Create_UserInit();
@@ -118,6 +126,7 @@ void R_SPI_Start(void)
     IEN(RSPI0,SPTI0) = 1U;
     IEN(RSPI0,SPRI0) = 1U;
     IEN(RSPI0,SPEI0) = 1U;
+    IEN(RSPI0,SPII0) = 1U;
 
     /* Clear error sources */
     dummy = RSPI0.SPSR.BYTE;
@@ -140,6 +149,7 @@ void R_SPI_Stop(void)
     IEN(RSPI0,SPTI0) = 0U;
     IEN(RSPI0,SPRI0) = 0U;
     IEN(RSPI0,SPEI0) = 0U;
+    IEN(RSPI0,SPII0) = 0U;
 
     /* Disable RSPI function */
     RSPI0.SPCR.BIT.SPE = 0U;
@@ -174,13 +184,6 @@ MD_STATUS R_SPI_Send_Receive(uint16_t * const tx_buf, uint16_t tx_num, uint16_t 
         gp_rspi0_rx_address = rx_buf;
         g_rspi0_rx_length = tx_num;
         g_rspi0_rx_count = 0U;
-
-        /* Clear SPE bit to ensure transmit buffer empty interrupt be generated
-           when state of SPE bit changing from 0 to 1 is satisfied later        */
-        if(1U == RSPI0.SPCR.BIT.SPE)
-        {
-            RSPI0.SPCR.BIT.SPE = 0U;
-        }
 
         /* Enable transmit interrupt */
         RSPI0.SPCR.BIT.SPTIE = 1U;

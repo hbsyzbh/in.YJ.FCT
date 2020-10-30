@@ -22,7 +22,7 @@
 * Version      : 1.9.1
 * Device(s)    : R5F51306AxFK
 * Description  : This file implements device driver for SPI.
-* Creation Date: 2020-10-29
+* Creation Date: 2020-10-30
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -88,7 +88,9 @@ void r_SPI_transmit_interrupt(void)
         {
             /* Disable transmit interrupt */
             RSPI0.SPCR.BIT.SPTIE = 0U;
-            r_SPI_callback_transmitend();
+
+            /* Enable idle interrupt */
+            RSPI0.SPCR2.BIT.SPIIE = 1U;
             break;
         }
     }
@@ -147,6 +149,9 @@ void r_SPI_error_interrupt(void)
     /* Disable error interrupt */
     RSPI0.SPCR.BIT.SPEIE = 0U;
 
+    /* Disable idle interrupt */
+    RSPI0.SPCR2.BIT.SPIIE = 0U;
+
     /* Clear error sources */
     err_type = RSPI0.SPSR.BYTE;
     RSPI0.SPSR.BYTE = 0xA0U;
@@ -155,6 +160,24 @@ void r_SPI_error_interrupt(void)
     {
         r_SPI_callback_error(err_type);
     }
+}
+
+/***********************************************************************************************************************
+* Function Name: r_SPI_idle_interrupt
+* Description  : This function is SPII0 interrupt service routine
+* Arguments    : None
+* Return Value : None
+***********************************************************************************************************************/
+
+void r_SPI_idle_interrupt(void)
+{
+    /* Disable RSPI function */
+    RSPI0.SPCR.BIT.SPE = 0U;
+
+    /* Disable idle interrupt */
+    RSPI0.SPCR2.BIT.SPIIE = 0U;
+
+    r_SPI_callback_transmitend();
 }
 
 /***********************************************************************************************************************
@@ -167,6 +190,7 @@ void r_SPI_error_interrupt(void)
 static void r_SPI_callback_transmitend(void)
 {
     /* Start user code for r_SPI_callback_transmitend. Do not edit comment generated here */
+	SPI_INT_Done();
     /* End user code. Do not edit comment generated here */
 }
 
@@ -180,6 +204,7 @@ static void r_SPI_callback_transmitend(void)
 static void r_SPI_callback_receiveend(void)
 {
     /* Start user code for r_SPI_callback_receiveend. Do not edit comment generated here */
+	SPI_INT_Done();
     /* End user code. Do not edit comment generated here */
 }
 

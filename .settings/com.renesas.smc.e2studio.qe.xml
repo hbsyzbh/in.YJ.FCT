@@ -40,7 +40,7 @@
         <Setting id="PA0" value="PA0"/>
         <Setting id="PE3" value="AN019"/>
         <Setting id="PE5" value="AN021"/>
-        <Setting id="PA1" value="PA1"/>
+        <Setting id="PA1" value="SSLA2"/>
         <Setting id="PA4" value="PA4"/>
         <Setting id="PA3" value="PA3"/>
         <Setting id="PA6" value="PA6"/>

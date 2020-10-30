@@ -11,6 +11,14 @@
 #include "Pin.h"
 #include "maxdoneYJBios.h"
 
+void checkW25JEDECID(void)
+{
+	unsigned short cmd[4] = {0x9F, 0xAA55, 0x0A50, 0x0A50};
+	unsigned short JedecID[4];
+
+	SPI_INT(cmd, 4, JedecID);
+}
+
 void main(void)
 {
 	R_Systeminit();
@@ -20,6 +28,8 @@ void main(void)
 	R_UART_Start();
 	R_UART2_Start();
 	R_UART3_Start();
+
+
 
 	while(1) {
 		setD8(1);
@@ -35,5 +45,6 @@ void main(void)
 		setD9(0);
 		setD10(0);
 		delay(10);
+		checkW25JEDECID();
 	}
 }
