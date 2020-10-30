@@ -36,9 +36,10 @@ void setD10(unsigned char on)
 }
 
 unsigned char SPI_INT_DONE_FLAG = 0;
-void SPI_INT(unsigned char * const tx_buf, unsigned char tx_num, unsigned char * const rx_buf)
+void SPI_COMMU(unsigned char * const tx_buf, unsigned char tx_num, unsigned char * const rx_buf, unsigned char channel)
 {
-	 RSPI0.SPCR.BIT.SPE = 1U;
+	RSPI0.SPCMD0.BIT.SSLA = channel;
+	RSPI0.SPCR.BIT.SPE = 1U;
 
 	 for(int i = 0; i < tx_num; i++)
 	 {
@@ -46,10 +47,29 @@ void SPI_INT(unsigned char * const tx_buf, unsigned char tx_num, unsigned char *
 		 RSPI0.SPDR.WORD.H = tx_buf[i];
 		 while(RSPI0.SPSR.BIT.IDLNF);
 
-		 rx_buf[i] = RSPI0.SPDR.WORD.H;
+		 if(rx_buf)
+			 rx_buf[i] = RSPI0.SPDR.WORD.H;
 	 }
 
 	 R_SPI_Stop();
+}
+
+void SPI_INT(unsigned char * const tx_buf, unsigned char tx_num, unsigned char * const rx_buf)
+{
+	SPI_COMMU(tx_buf, tx_num, rx_buf,  2);
+}
+
+void SPI_595(unsigned char * const tx_buf, unsigned char tx_num, unsigned char * const rx_buf)
+{
+	SPI_COMMU(tx_buf, tx_num, rx_buf,  0);
+}
+
+void Set_595(unsigned char Q595)
+{
+	unsigned char tx_buf[1];
+
+	tx_buf[0] = Q595;
+	SPI_595(tx_buf, 1, 0);
 }
 
 void SPI_INT_Done(void)
