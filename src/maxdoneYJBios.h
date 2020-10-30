@@ -14,7 +14,10 @@ void setD8(unsigned char on);
 void setD9(unsigned char on);
 void setD10(unsigned char on);
 
+void checkW25JEDECID(void);
 
-void SPI_INT(unsigned char * const tx_buf, unsigned char tx_num, unsigned char * const rx_buf);
+void W25_Erase(void);
+void W25_read(unsigned int addr, unsigned char *buf, unsigned char len);
+void W25_write(unsigned int addr, unsigned char *buf, unsigned char len);
 
 #endif /* MAXDONEYJBIOS_H_ */
