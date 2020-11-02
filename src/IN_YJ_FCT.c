@@ -44,8 +44,14 @@ void TestE2P()
 {
 	unsigned char buff[TST_LEN] = {0};
 
-	//write_24AA02E48(0, TstStr, TST_LEN);
-	read_24AA02E48(0, buff, TST_LEN);
+	//write_24AA02E48(0, "1234567890", TST_LEN);
+	//write_24AA02E48(0, "M", 1);
+
+	while(1)
+	{
+		read_24AA02E48(0, buff, TST_LEN);
+		delay(100);
+	}
 }
 
 
