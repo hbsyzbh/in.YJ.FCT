@@ -40,6 +40,14 @@ unsigned char TestW25(void)
 	return 0;
 }
 
+void TestE2P()
+{
+	unsigned char buff[TST_LEN] = {0};
+
+	//write_24AA02E48(0, TstStr, TST_LEN);
+	read_24AA02E48(0, buff, TST_LEN);
+}
+
 
 void main(void)
 {
@@ -52,6 +60,9 @@ void main(void)
 	R_UART3_Start();
 
 	//TestW25();
+
+	while(1)
+		TestE2P();
 
 	while(1) {
 		setD8(1);

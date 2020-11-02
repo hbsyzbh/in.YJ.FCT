@@ -22,7 +22,7 @@
 * Version      : 1.9.1
 * Device(s)    : R5F51306AxFK
 * Description  : This file implements device driver for Config_RIIC0.
-* Creation Date: 2020-10-30
+* Creation Date: 2020-11-02
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_RIIC0_H
@@ -40,8 +40,8 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _F7_IIC0_SCL_LOW_LEVEL_PERIOD                          (0xF7U) /* SCL clock low-level period setting */
-#define _F8_IIC0_SCL_HIGH_LEVEL_PERIOD                         (0xF8U) /* SCL clock high-level period setting */
+#define _F0_IIC0_SCL_LOW_LEVEL_PERIOD                          (0xF0U) /* SCL clock low-level period setting */
+#define _F1_IIC0_SCL_HIGH_LEVEL_PERIOD                         (0xF1U) /* SCL clock high-level period setting */
 
 /***********************************************************************************************************************
 Typedef definitions

@@ -22,7 +22,7 @@
 * Version      : 1.7.1
 * Device(s)    : R5F51306AxFK
 * Description  : This file implements device driver for SPI.
-* Creation Date: 2020-10-30
+* Creation Date: 2020-11-02
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -77,7 +77,7 @@ void R_SPI_Create(void)
     /* Set control registers */
     RSPI0.SSLP.BYTE = _00_RSPI_SSL2_POLARITY_LOW;
     RSPI0.SPPCR.BYTE = _00_RSPI_MOSI_FIXING_PREV_TRANSFER | _00_RSPI_LOOPBACK_DISABLED | _00_RSPI_LOOPBACK2_DISABLED;
-    RSPI0.SPBR = _9F_RSPI0_DIVISOR;
+    RSPI0.SPBR = _0F_RSPI0_DIVISOR;
     RSPI0.SPDCR.BYTE = _00_RSPI_ACCESS_WORD | _00_RSPI_FRAMES_1;
     RSPI0.SPCKD.BYTE = _00_RSPI_RSPCK_DELAY_1;
     RSPI0.SSLND.BYTE = _00_RSPI_SSL_NEGATION_DELAY_1;

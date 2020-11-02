@@ -22,7 +22,7 @@
 * Version      : 1.9.1
 * Device(s)    : R5F51306AxFK
 * Description  : This file implements device driver for Config_RIIC0.
-* Creation Date: 2020-10-30
+* Creation Date: 2020-11-02
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -72,9 +72,9 @@ void R_Config_RIIC0_Create(void)
     RIIC0.ICCR1.BIT.ICE = 1U;
 
     /* Set transfer bit rate */
-    RIIC0.ICMR1.BYTE |= _60_IIC_PCLK_DIV_64;
-    RIIC0.ICBRL.BYTE = _F7_IIC0_SCL_LOW_LEVEL_PERIOD;
-    RIIC0.ICBRH.BYTE = _F8_IIC0_SCL_HIGH_LEVEL_PERIOD;
+    RIIC0.ICMR1.BYTE |= _30_IIC_PCLK_DIV_8;
+    RIIC0.ICBRL.BYTE = _F0_IIC0_SCL_LOW_LEVEL_PERIOD;
+    RIIC0.ICBRH.BYTE = _F1_IIC0_SCL_HIGH_LEVEL_PERIOD;
     RIIC0.ICMR2.BYTE = 0x00U;
     RIIC0.ICMR3.BIT.NF = _00_IIC_NOISE_FILTER_1;
     RIIC0.ICMR3.BIT.SMBS = 0U;

@@ -20,4 +20,7 @@ void W25_Erase(void);
 void W25_read(unsigned int addr, unsigned char *buf, unsigned char len);
 void W25_write(unsigned int addr, unsigned char *buf, unsigned char len);
 
+void write_24AA02E48(unsigned int addr, unsigned char *buf, unsigned char len);
+void read_24AA02E48(unsigned int addr, unsigned char *buf, unsigned char len);
+
 #endif /* MAXDONEYJBIOS_H_ */

@@ -889,7 +889,7 @@
             <allocatable id="RIIC0">
                 <isocket id="CountingClock" selection="Clock.tool_clock_pclkb" value="3.2E7"/>
                 <option enabled="true" id="Bitrate" selection="FreeValue">
-                    <item id="FreeValue" input="10" vlaue="10"/>
+                    <item id="FreeValue" input="100" vlaue="10"/>
                     <item id="10" input="10" vlaue="0"/>
                     <item id="50" input="50" vlaue="0"/>
                     <item id="100" input="100" vlaue="0"/>

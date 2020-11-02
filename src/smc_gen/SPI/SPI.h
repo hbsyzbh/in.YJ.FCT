@@ -22,7 +22,7 @@
 * Version      : 1.7.1
 * Device(s)    : R5F51306AxFK
 * Description  : This file implements device driver for SPI.
-* Creation Date: 2020-10-30
+* Creation Date: 2020-11-02
 ***********************************************************************************************************************/
 
 #ifndef CFG_SPI_H
@@ -40,7 +40,7 @@ Macro definitions (Register bit)
 /***********************************************************************************************************************
 Macro definitions
 ***********************************************************************************************************************/
-#define _9F_RSPI0_DIVISOR               (0x9FU) /* SPBR(RSPI bit rate) register value */
+#define _0F_RSPI0_DIVISOR               (0x0FU) /* SPBR(RSPI bit rate) register value */
 
 /***********************************************************************************************************************
 Typedef definitions

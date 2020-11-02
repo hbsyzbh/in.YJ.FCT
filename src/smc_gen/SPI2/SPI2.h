@@ -22,7 +22,7 @@
 * Version      : 1.9.1
 * Device(s)    : R5F51306AxFK
 * Description  : This file implements device driver for SPI2.
-* Creation Date: 2020-10-30
+* Creation Date: 2020-11-02
 ***********************************************************************************************************************/
 
 #ifndef CFG_SPI2_H

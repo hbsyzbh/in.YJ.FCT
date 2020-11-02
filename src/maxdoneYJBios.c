@@ -161,3 +161,77 @@ void checkW25JEDECID(void)
 	SPI_INT(cmd, 4, JedecID);
 }
 
+void write_24AA02E48(unsigned int addr, unsigned char *buf, unsigned char len)
+{
+	R_Config_RIIC0_IIC_StartCondition();
+
+	while(! RIIC0.ICSR2.BIT.TDRE);
+	RIIC0.ICDRT = 0xA0;
+
+	while(! RIIC0.ICSR2.BIT.TDRE);
+	RIIC0.ICDRT = addr;
+
+
+	for(int i = 0; i < len; i++)
+	{
+		while(! RIIC0.ICSR2.BIT.TDRE);
+		RIIC0.ICDRT = buf[i];
+	}
+	R_Config_RIIC0_IIC_StopCondition();
+
+}
+
+void I2C_sendData(unsigned char data)
+{
+	while(! RIIC0.ICSR2.BIT.TDRE);
+	RIIC0.ICDRT = data;
+	while(! RIIC0.ICSR2.BIT.TEND);
+}
+
+void I2C_Start(void)
+{
+	RIIC0.ICSR2.BIT.START = 0U;
+	RIIC0.ICCR2.BIT.ST = 1U;    /* Set start condition flag */
+	while( ! RIIC0.ICSR2.BIT.START);
+}
+
+void I2C_reStart(void)
+{
+	RIIC0.ICSR2.BIT.START = 0U;
+	RIIC0.ICCR2.BIT.RS = 1U;
+	while( ! RIIC0.ICSR2.BIT.START);
+}
+
+void I2C_Stop(void)
+{
+	RIIC0.ICSR2.BIT.STOP = 0u;
+	RIIC0.ICCR2.BIT.SP = 1U;    /* Set stop condition flag */
+	while( ! RIIC0.ICSR2.BIT.STOP);
+}
+
+void I2C_StartRecvData(unsigned char slaveAddr)
+{
+	I2C_reStart();
+
+	while(! RIIC0.ICSR2.BIT.TDRE);
+	RIIC0.ICDRT = (slaveAddr |= 0x01);
+}
+
+
+void read_24AA02E48(unsigned int addr, unsigned char *buf, unsigned char len)
+{
+	int i;
+
+	I2C_Start();
+	I2C_sendData(0xA0);
+	I2C_sendData(addr);
+
+	I2C_StartRecvData(0xA1);
+	for(i = 0; i < len; i++)
+	{
+		while(! RIIC0.ICSR2.BIT.RDRF);
+		buf[i] = RIIC0.ICDRR;
+	}
+
+	I2C_Stop();
+}
