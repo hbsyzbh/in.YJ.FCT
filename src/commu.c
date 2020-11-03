@@ -147,6 +147,14 @@ void SetLed(unsigned char v)
 	setD10((v & 0x04) == 0x04);
 }
 
+void SetLights(unsigned char v)
+{
+	setRED  ((v & 0x01) == 0x01);
+	setBLUE ((v & 0x02) == 0x02);
+	setGREEN((v & 0x04) == 0x04);
+	setLIGHT((v & 0x08) == 0x08);
+}
+
 static void analysisCmd()
 {
 	rtc_calendarcounter_value_t counter_write_val;
@@ -200,6 +208,12 @@ static void analysisCmd()
 
 	case Cmd_testLED:
 		SetLed(revBuff[ACK_DATA_POS]);
+		ackbuff[ACK_DATA_POS] = revBuff[ACK_DATA_POS];
+		R_UART2_Send(ackbuff, 	ACK_DATA_POS + 1);
+		break;
+
+	case Cmd_testLight:
+		SetLights(revBuff[ACK_DATA_POS]);
 		ackbuff[ACK_DATA_POS] = revBuff[ACK_DATA_POS];
 		R_UART2_Send(ackbuff, 	ACK_DATA_POS + 1);
 		break;

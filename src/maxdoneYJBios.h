@@ -22,6 +22,11 @@ void setD8(unsigned char on);
 void setD9(unsigned char on);
 void setD10(unsigned char on);
 
+void setRED(unsigned char on);
+void setBLUE(unsigned char on);
+void setGREEN(unsigned char on);
+void setLIGHT(unsigned char on);
+
 void checkW25JEDECID(void);
 void checkSPI2JEDECID(void);
 

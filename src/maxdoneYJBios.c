@@ -35,6 +35,26 @@ void setD10(unsigned char on)
 	PORT5.PODR.BIT.B5 = on ? 0 : 1;
 }
 
+void setRED(unsigned char on)
+{
+	PORTA.PODR.BIT.B0 = on ? 1 : 0;
+}
+
+void setBLUE(unsigned char on)
+{
+	PORTB.PODR.BIT.B5 = on ? 1 : 0;
+}
+
+void setGREEN(unsigned char on)
+{
+	PORT1.PODR.BIT.B4 = on ? 1 : 0;
+}
+
+void setLIGHT(unsigned char on)
+{
+	PORTB.PODR.BIT.B1  = on ? 1 : 0;
+}
+
 unsigned char SPI_INT_DONE_FLAG = 0;
 void SPI_COMMU(unsigned char * const tx_buf, unsigned char tx_num, unsigned char * const rx_buf, unsigned char channel)
 {

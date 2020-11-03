@@ -301,16 +301,16 @@
         <pinItem allocation="27" comments="" direction="None" id="MISOA" isUsedBySoftware="true" locked="false" status="0"/>
         <pinItem allocation="44" comments="" direction="None" id="SSLA2" isUsedBySoftware="true" locked="false" status="0"/>
         <pinItem allocation="1" comments="" direction="IO" id="P03" isUsedBySoftware="false" locked="false" status="4"/>
-        <pinItem allocation="45" comments="" direction="IO" id="PA0" isUsedBySoftware="false" locked="false" status="4"/>
+        <pinItem allocation="45" comments="" direction="O" id="PA0" isUsedBySoftware="true" locked="false" status="0"/>
         <pinItem allocation="42" comments="" direction="IO" id="PA4" isUsedBySoftware="false" locked="false" status="4"/>
         <pinItem allocation="43" comments="" direction="IO" id="PA3" isUsedBySoftware="false" locked="false" status="4"/>
         <pinItem allocation="41" comments="" direction="IO" id="PA6" isUsedBySoftware="false" locked="false" status="4"/>
-        <pinItem allocation="20" comments="" direction="IO" id="P14" isUsedBySoftware="false" locked="false" status="4"/>
+        <pinItem allocation="20" comments="" direction="O" id="P14" isUsedBySoftware="true" locked="false" status="0"/>
         <pinItem allocation="19" comments="" direction="O" id="P15" isUsedBySoftware="true" locked="false" status="0"/>
-        <pinItem allocation="37" comments="" direction="IO" id="PB1" isUsedBySoftware="false" locked="false" status="4"/>
+        <pinItem allocation="37" comments="" direction="O" id="PB1" isUsedBySoftware="true" locked="false" status="0"/>
         <pinItem allocation="39" comments="" direction="I" id="PB0" isUsedBySoftware="true" locked="false" status="0"/>
         <pinItem allocation="36" comments="" direction="O" id="PB3" isUsedBySoftware="true" locked="false" status="0"/>
-        <pinItem allocation="35" comments="" direction="IO" id="PB5" isUsedBySoftware="false" locked="false" status="4"/>
+        <pinItem allocation="35" comments="" direction="O" id="PB5" isUsedBySoftware="true" locked="false" status="0"/>
         <pinItem allocation="33" comments="" direction="IO" id="PB7" isUsedBySoftware="false" locked="false" status="4"/>
         <pinItem allocation="34" comments="" direction="IO" id="PB6" isUsedBySoftware="false" locked="false" status="4"/>
         <pinItem allocation="5" comments="" direction="None" id="XCOUT" isUsedBySoftware="true" locked="false" status="0"/>
@@ -1876,7 +1876,7 @@
                 </allocatable>
                 <allocatable id="PORT1_Chan">
                     <allocatable id="PORTx4_Item">
-                        <option enabled="true" id="UseStatus" selection="Unuse">
+                        <option enabled="true" id="UseStatus" selection="Out">
                             <item id="Unuse" input="" vlaue="0"/>
                             <item id="In" input="" vlaue="0"/>
                             <item id="Out" input="" vlaue="0"/>
@@ -2372,8 +2372,194 @@
                         <item id="Disable" input="" vlaue="0"/>
                     </option>
                 </allocatable>
+                <allocatable id="PORTA_Chan">
+                    <allocatable id="PORTx0_Item">
+                        <option enabled="true" id="UseStatus" selection="Out">
+                            <item id="Unuse" input="" vlaue="0"/>
+                            <item id="In" input="" vlaue="0"/>
+                            <item id="Out" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="false" id="Output1" selection="Output1Unuse">
+                            <item id="Output1Unuse" input="" vlaue="0"/>
+                            <item id="Output1Use" input="" vlaue="0"/>
+                            <item id="Output1disable" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="Pullup" selection="PullupUnuse">
+                            <item id="PullupUse" input="" vlaue="0"/>
+                            <item id="PullupUnuse" input="" vlaue="0"/>
+                            <item id="Pullupdisable" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="Opendrain" selection="CMOS">
+                            <item id="CMOS" input="" vlaue="0"/>
+                            <item id="NChanel" input="" vlaue="0"/>
+                            <item id="PChanel" input="" vlaue="0"/>
+                            <item id="HiZ" input="" vlaue="0"/>
+                            <item id="Opendraindisable" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="Highdrive" selection="HighdriveUnuse">
+                            <item id="HighdriveUse" input="" vlaue="0"/>
+                            <item id="HighdriveUnuse" input="" vlaue="0"/>
+                            <item id="FixHighdrive" input="" vlaue="0"/>
+                            <item id="HighdriveDisable" input="" vlaue="0"/>
+                        </option>
+                    </allocatable>
+                    <allocatable id="PORTx1_Item">
+                        <option enabled="true" id="UseStatus" selection="Unuse">
+                            <item id="Unuse" input="" vlaue="0"/>
+                            <item id="In" input="" vlaue="0"/>
+                            <item id="Out" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="false" id="Output1" selection="Output1Unuse">
+                            <item id="Output1Unuse" input="" vlaue="0"/>
+                            <item id="Output1Use" input="" vlaue="0"/>
+                            <item id="Output1disable" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="Pullup" selection="PullupUnuse">
+                            <item id="PullupUse" input="" vlaue="0"/>
+                            <item id="PullupUnuse" input="" vlaue="0"/>
+                            <item id="Pullupdisable" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="Opendrain" selection="CMOS">
+                            <item id="CMOS" input="" vlaue="0"/>
+                            <item id="NChanel" input="" vlaue="0"/>
+                            <item id="PChanel" input="" vlaue="0"/>
+                            <item id="HiZ" input="" vlaue="0"/>
+                            <item id="Opendraindisable" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="Highdrive" selection="HighdriveUnuse">
+                            <item id="HighdriveUse" input="" vlaue="0"/>
+                            <item id="HighdriveUnuse" input="" vlaue="0"/>
+                            <item id="FixHighdrive" input="" vlaue="0"/>
+                            <item id="HighdriveDisable" input="" vlaue="0"/>
+                        </option>
+                    </allocatable>
+                    <allocatable id="PORTx3_Item">
+                        <option enabled="true" id="UseStatus" selection="Unuse">
+                            <item id="Unuse" input="" vlaue="0"/>
+                            <item id="In" input="" vlaue="0"/>
+                            <item id="Out" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="false" id="Output1" selection="Output1Unuse">
+                            <item id="Output1Unuse" input="" vlaue="0"/>
+                            <item id="Output1Use" input="" vlaue="0"/>
+                            <item id="Output1disable" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="Pullup" selection="PullupUnuse">
+                            <item id="PullupUse" input="" vlaue="0"/>
+                            <item id="PullupUnuse" input="" vlaue="0"/>
+                            <item id="Pullupdisable" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="Opendrain" selection="CMOS">
+                            <item id="CMOS" input="" vlaue="0"/>
+                            <item id="NChanel" input="" vlaue="0"/>
+                            <item id="PChanel" input="" vlaue="0"/>
+                            <item id="HiZ" input="" vlaue="0"/>
+                            <item id="Opendraindisable" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="Highdrive" selection="HighdriveUnuse">
+                            <item id="HighdriveUse" input="" vlaue="0"/>
+                            <item id="HighdriveUnuse" input="" vlaue="0"/>
+                            <item id="FixHighdrive" input="" vlaue="0"/>
+                            <item id="HighdriveDisable" input="" vlaue="0"/>
+                        </option>
+                    </allocatable>
+                    <allocatable id="PORTx4_Item">
+                        <option enabled="true" id="UseStatus" selection="Unuse">
+                            <item id="Unuse" input="" vlaue="0"/>
+                            <item id="In" input="" vlaue="0"/>
+                            <item id="Out" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="false" id="Output1" selection="Output1Unuse">
+                            <item id="Output1Unuse" input="" vlaue="0"/>
+                            <item id="Output1Use" input="" vlaue="0"/>
+                            <item id="Output1disable" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="Pullup" selection="PullupUnuse">
+                            <item id="PullupUse" input="" vlaue="0"/>
+                            <item id="PullupUnuse" input="" vlaue="0"/>
+                            <item id="Pullupdisable" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="Opendrain" selection="CMOS">
+                            <item id="CMOS" input="" vlaue="0"/>
+                            <item id="NChanel" input="" vlaue="0"/>
+                            <item id="PChanel" input="" vlaue="0"/>
+                            <item id="HiZ" input="" vlaue="0"/>
+                            <item id="Opendraindisable" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="Highdrive" selection="HighdriveUnuse">
+                            <item id="HighdriveUse" input="" vlaue="0"/>
+                            <item id="HighdriveUnuse" input="" vlaue="0"/>
+                            <item id="FixHighdrive" input="" vlaue="0"/>
+                            <item id="HighdriveDisable" input="" vlaue="0"/>
+                        </option>
+                    </allocatable>
+                    <allocatable id="PORTx6_Item">
+                        <option enabled="true" id="UseStatus" selection="Unuse">
+                            <item id="Unuse" input="" vlaue="0"/>
+                            <item id="In" input="" vlaue="0"/>
+                            <item id="Out" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="false" id="Output1" selection="Output1Unuse">
+                            <item id="Output1Unuse" input="" vlaue="0"/>
+                            <item id="Output1Use" input="" vlaue="0"/>
+                            <item id="Output1disable" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="Pullup" selection="PullupUnuse">
+                            <item id="PullupUse" input="" vlaue="0"/>
+                            <item id="PullupUnuse" input="" vlaue="0"/>
+                            <item id="Pullupdisable" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="Opendrain" selection="CMOS">
+                            <item id="CMOS" input="" vlaue="0"/>
+                            <item id="NChanel" input="" vlaue="0"/>
+                            <item id="PChanel" input="" vlaue="0"/>
+                            <item id="HiZ" input="" vlaue="0"/>
+                            <item id="Opendraindisable" input="" vlaue="0"/>
+                        </option>
+                        <option enabled="true" id="Highdrive" selection="HighdriveUnuse">
+                            <item id="HighdriveUse" input="" vlaue="0"/>
+                            <item id="HighdriveUnuse" input="" vlaue="0"/>
+                            <item id="FixHighdrive" input="" vlaue="0"/>
+                            <item id="HighdriveDisable" input="" vlaue="0"/>
+                        </option>
+                    </allocatable>
+                    <option enabled="true" id="ApplyAll" selection="ApplyallUnuse">
+                        <item id="ApplyallUse" input="" vlaue="0"/>
+                        <item id="ApplyallUnuse" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="true" id="UseStatusAll" selection="UnuseAlldisbale">
+                        <item id="UnuseAll" input="" vlaue="0"/>
+                        <item id="InAll" input="" vlaue="0"/>
+                        <item id="OutAll" input="" vlaue="0"/>
+                        <item id="UnuseAlldisbale" input="" vlaue="0"/>
+                        <item id="InAlldisbale" input="" vlaue="0"/>
+                        <item id="OutAlldisbale" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="PullupAll" selection="PullupAlldisable">
+                        <item id="PullupUseAll" input="" vlaue="0"/>
+                        <item id="PullupUnuseAll" input="" vlaue="0"/>
+                        <item id="PullupAlldisable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="OpendrainAll" selection="OpendrainAlldisable">
+                        <item id="CMOSAll" input="" vlaue="0"/>
+                        <item id="NChanelAll" input="" vlaue="0"/>
+                        <item id="PChanelAll" input="" vlaue="0"/>
+                        <item id="HiZAll" input="" vlaue="0"/>
+                        <item id="OpendrainAlldisable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="Output1All" selection="Output1Alldisable">
+                        <item id="Output1UnuseAll" input="" vlaue="0"/>
+                        <item id="Output1UseAll" input="" vlaue="0"/>
+                        <item id="Output1Alldisable" input="" vlaue="0"/>
+                    </option>
+                    <option enabled="false" id="HighdriveAll" selection="HighdriveAlldisable">
+                        <item id="HighdriveUseAll" input="" vlaue="0"/>
+                        <item id="HighdriveUnuseAll" input="" vlaue="0"/>
+                        <item id="HighdriveAlldisable" input="" vlaue="0"/>
+                    </option>
+                </allocatable>
                 <allocatable id="PORTA_Check">
-                    <option enabled="true" id="PortnEnable" selection="Disable">
+                    <option enabled="true" id="PortnEnable" selection="Enable">
                         <item id="Enable" input="" vlaue="0"/>
                         <item id="Disable" input="" vlaue="0"/>
                     </option>
@@ -2410,7 +2596,7 @@
                         </option>
                     </allocatable>
                     <allocatable id="PORTx1_Item">
-                        <option enabled="true" id="UseStatus" selection="Unuse">
+                        <option enabled="true" id="UseStatus" selection="Out">
                             <item id="Unuse" input="" vlaue="0"/>
                             <item id="In" input="" vlaue="0"/>
                             <item id="Out" input="" vlaue="0"/>
@@ -2470,7 +2656,7 @@
                         </option>
                     </allocatable>
                     <allocatable id="PORTx5_Item">
-                        <option enabled="true" id="UseStatus" selection="Unuse">
+                        <option enabled="true" id="UseStatus" selection="Out">
                             <item id="Unuse" input="" vlaue="0"/>
                             <item id="In" input="" vlaue="0"/>
                             <item id="Out" input="" vlaue="0"/>
@@ -2780,7 +2966,7 @@
                         <item id="Disable" input="" vlaue="0"/>
                     </option>
                 </allocatable>
-                <osocket id="PORTINFO" value=";P15_O;P31_O;P55_O;PH1_O;PH3_O;PB3_O;PB0_I;P32_O;"/>
+                <osocket id="PORTINFO" value=";P15_O;P31_O;P32_O;P55_O;PB0_I;PB3_O;PH1_O;PH3_O;PB5_O;PB1_O;P14_O;PA0_O;"/>
             </allocatable>
             <component description="This software component provides configurations for General Purpose Input/Output. Common features such as reading, writing, and setting the direction of ports and pins can be configured. Enabling features such as open-drain outputs and internal pull-ups are also supported. " detailDescription="" display="Ports" id="com.renesas.smc.tools.swcomponent.codegenerator.port" version="2.1.1"/>
             <allocator channelLevel0="" channelLevel1="" channelLevel2="" channelLevel3="" channelLevel4="" channelLevel5="" description="Input output configuration of PORT" display="PORT" id="com.renesas.smc.tools.swcomponent.codegenerator.port.rx130.PORT" type="">
