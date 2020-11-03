@@ -22,7 +22,7 @@
 * Version      : 2.1.1
 * Device(s)    : R5F51306AxFK
 * Description  : This file implements device driver for Config_PORT.
-* Creation Date: 2020-11-02
+* Creation Date: 2020-11-03
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -55,11 +55,34 @@ Global variables and functions
 
 void R_Config_PORT_Create(void)
 {
+    /* Set PORT1 registers */
+    PORT1.PODR.BYTE = _00_Pm5_OUTPUT_0;
+    PORT1.ODR1.BYTE = _00_Pm4_CMOS_OUTPUT | _00_Pm5_CMOS_OUTPUT | _00_Pm6_CMOS_OUTPUT | _00_Pm7_CMOS_OUTPUT;
+    PORT1.DSCR.BYTE = _00_Pm5_HIDRV_OFF;
+    PORT1.PMR.BYTE = _00_Pm5_PIN_GPIO;
+    PORT1.PDR.BYTE = _20_Pm5_MODE_OUTPUT | _0F_PDR1_DEFAULT;
+
+    /* Set PORT3 registers */
+    PORT3.PODR.BYTE = _00_Pm1_OUTPUT_0 | _04_Pm2_OUTPUT_1;
+    PORT3.ODR0.BYTE = _00_Pm0_CMOS_OUTPUT | _00_Pm1_CMOS_OUTPUT | _00_Pm2_CMOS_OUTPUT;
+    PORT3.ODR1.BYTE = _00_Pm6_CMOS_OUTPUT | _00_Pm7_CMOS_OUTPUT;
+    PORT3.DSCR.BYTE = _00_Pm1_HIDRV_OFF | _00_Pm2_HIDRV_OFF;
+    PORT3.PMR.BYTE = _00_Pm1_PIN_GPIO | _00_Pm2_PIN_GPIO;
+    PORT3.PDR.BYTE = _02_Pm1_MODE_OUTPUT | _04_Pm2_MODE_OUTPUT | _18_PDR3_DEFAULT;
+
     /* Set PORT5 registers */
     PORT5.PODR.BYTE = _00_Pm5_OUTPUT_0;
     PORT5.DSCR.BYTE = _00_Pm5_HIDRV_OFF;
     PORT5.PMR.BYTE = _00_Pm5_PIN_GPIO;
     PORT5.PDR.BYTE = _20_Pm5_MODE_OUTPUT | _CF_PDR5_DEFAULT;
+
+    /* Set PORTB registers */
+    PORTB.PODR.BYTE = _08_Pm3_OUTPUT_1;
+    PORTB.ODR0.BYTE = _00_Pm1_CMOS_OUTPUT | _00_Pm3_CMOS_OUTPUT;
+    PORTB.PCR.BYTE = _00_Pm0_PULLUP_OFF;
+    PORTB.DSCR.BYTE = _00_Pm3_HIDRV_OFF;
+    PORTB.PMR.BYTE = _00_Pm0_PIN_GPIO | _00_Pm3_PIN_GPIO;
+    PORTB.PDR.BYTE = _00_Pm0_MODE_INPUT | _08_Pm3_MODE_OUTPUT | _14_PDRB_DEFAULT;
 
     /* Set PORTH registers */
     PORTH.PODR.BYTE = _00_Pm1_OUTPUT_0 | _00_Pm3_OUTPUT_0;

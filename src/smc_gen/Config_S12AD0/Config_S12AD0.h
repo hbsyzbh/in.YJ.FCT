@@ -22,7 +22,7 @@
 * Version      : 2.2.0
 * Device(s)    : R5F51306AxFK
 * Description  : This file implements device driver for Config_S12AD0.
-* Creation Date: 2020-11-02
+* Creation Date: 2020-11-03
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_S12AD0_H

@@ -57,6 +57,7 @@ void SPI_COMMU(unsigned char * const tx_buf, unsigned char tx_num, unsigned char
 void SPI_INT(unsigned char * const tx_buf, unsigned char tx_num, unsigned char * const rx_buf)
 {
 	SPI_COMMU(tx_buf, tx_num, rx_buf,  2);
+	//SPI2_COM(tx_buf, rx_buf, tx_num );
 }
 
 void SPI_595(unsigned char * const tx_buf, unsigned char tx_num, unsigned char * const rx_buf)
@@ -245,6 +246,108 @@ void write_24AA02E48(unsigned int addr, unsigned char *buf, unsigned char len)
 
 		I2C_Stop();
 		delay(100);
+	}
+}
+
+void SetU16EN(unsigned char v)
+{
+	PORT3.PODR.BIT.B1 = v ? 1 : 0;
+}
+
+void SetSPI2CS(unsigned char v)
+{
+	PORT1.PODR.BIT.B5 = v ? 1 : 0;
+}
+
+
+void SPI2Delay(unsigned char time)
+{
+	unsigned char delay;
+
+	while(time--)
+	{
+		delay = 10;
+		while(delay--);
+	}
+}
+
+void SetSPI2SCK(unsigned char v)
+{
+	PORTB.PODR.BIT.B3 = v ? 1 : 0;
+}
+
+void SetSPI2MOSI(unsigned char v)
+{
+	PORT3.PODR.BIT.B2 = v ? 1 : 0;
+}
+
+unsigned char getSPI2MISO(void)
+{
+	return PORTB.PIDR.BIT.B0;
+}
+
+void SPI2_SEND_REV(unsigned char t, unsigned char *r)
+{
+	int i;
+	unsigned char buf;
+
+	buf = 0;
+	for(i = 0; i < 8; i++)
+	{
+		SetSPI2SCK(0);
+		SetSPI2MOSI( t & (1 << (7 - i)));
+
+		SPI2Delay(1);
+
+		buf <<= 1;
+		if(getSPI2MISO()) {
+			buf |= 1;
+		}
+
+		SetSPI2SCK(1);
+		SPI2Delay(1);
+
+	}
+
+
+
+	*r = buf;
+}
+
+void SPI2_COM(unsigned char *tx, unsigned char *rx, unsigned char len)
+{
+	unsigned char i;
+
+	SetSPI2CS(1);
+	SetSPI2MOSI(1);
+	SetSPI2SCK(0);
+	SetU16EN(0);
+	delay(1);
+	SetSPI2CS(0);
+
+	for(i = 0; i < len; i++)
+	{
+		SPI2_SEND_REV(tx[i] , &rx[i]);
+		SPI2Delay(10);
+	}
+
+
+	SetSPI2CS(1);
+	SetSPI2MOSI(1);
+	SetSPI2SCK(0);
+	SetU16EN(1);
+}
+
+void checkSPI2JEDECID(void)
+{
+	unsigned char cmd[7] = {0x9f, 0x9f, 0x9f, 0x9f};
+	unsigned char JedecID[7];
+
+	for(;;)
+	{
+		checkW25JEDECID();
+		SPI2_COM(cmd, JedecID, 4);
+		delay(10);
 	}
 }
 

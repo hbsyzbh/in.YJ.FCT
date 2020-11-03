@@ -22,7 +22,7 @@
 * Version      : 1.5.3
 * Device(s)    : R5F51306AxFK
 * Description  : This file implements device driver for Config_RTC.
-* Creation Date: 2020-11-02
+* Creation Date: 2020-11-03
 ***********************************************************************************************************************/
 
 #ifndef CFG_Config_RTC_H

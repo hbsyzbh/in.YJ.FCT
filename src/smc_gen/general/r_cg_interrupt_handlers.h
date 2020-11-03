@@ -22,7 +22,7 @@
 * Version      : 1.1.102
 * Device(s)    : R5F51306AxFK
 * Description  : This file declares interrupt handlers.
-* Creation Date: 2020-11-02
+* Creation Date: 2020-11-03
 ***********************************************************************************************************************/
 
 #ifndef INTERRUPT_HANDLERS_H
@@ -85,18 +85,6 @@ void r_UART2_transmit_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT
 
 /* SCI5 TEI5 */
 void r_UART2_transmitend_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI5,TEI5))));
-
-/* SCI6 ERI6 */
-void r_SPI2_receiveerror_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI6,ERI6))));
-
-/* SCI6 RXI6 */
-void r_SPI2_receive_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI6,RXI6))));
-
-/* SCI6 TXI6 */
-void r_SPI2_transmit_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI6,TXI6))));
-
-/* SCI6 TEI6 */
-void r_SPI2_transmitend_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI6,TEI6))));
 
 /* SCI12 ERI12 */
 void r_UART3_receiveerror_interrupt(void) __attribute__ ((interrupt(".rvectors",VECT(SCI12,ERI12))));

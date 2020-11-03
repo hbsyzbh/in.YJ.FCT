@@ -22,7 +22,7 @@
 * Version      : 1.1.102
 * Device(s)    : R5F51306AxFK
 * Description  : Initialization file for code generation configurations.
-* Creation Date: 2020-11-02
+* Creation Date: 2020-11-03
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -38,7 +38,6 @@ Includes
 #include "Config_S12AD0.h"
 #include "Config_RIIC0.h"
 #include "UART.h"
-#include "SPI2.h"
 #include "UART2.h"
 #include "UART3.h"
 #include "Config_RTC.h"
@@ -96,7 +95,6 @@ void R_Systeminit(void)
     R_Config_S12AD0_Create();
     R_Config_RIIC0_Create();
     R_UART_Create();
-    R_SPI2_Create();
     R_UART2_Create();
     R_UART3_Create();
     R_Config_RTC_Create();

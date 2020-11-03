@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <QE>
     <Segment id="Pin">
-        <Setting id="PB3" value="SCK6"/>
+        <Setting id="PB3" value="PB3"/>
         <Setting id="PB5" value="PB5"/>
         <Setting id="PB7" value="PB7"/>
         <Setting id="PB6" value="PB6"/>
@@ -17,7 +17,7 @@
         <Setting id="PC5" value="RSPCKA"/>
         <Setting id="PC7" value="MISOA"/>
         <Setting id="P30" value="RXD1"/>
-        <Setting id="P32" value="SMOSI6"/>
+        <Setting id="P32" value="P32"/>
         <Setting id="P31" value="P31"/>
         <Setting id="P35" value="P35"/>
         <Setting id="PH1" value="PH1"/>
@@ -52,7 +52,7 @@
         <Setting id="P17" value="SDA"/>
         <Setting id="XCIN" value="XCIN"/>
         <Setting id="PB1" value="PB1"/>
-        <Setting id="PB0" value="SMISO6"/>
+        <Setting id="PB0" value="PB0"/>
     </Segment>
     <Segment id="Device">
         <Setting id="Series" value="RX100"/>
@@ -75,7 +75,6 @@
         <Setting id="RtcCLK" value="32.768"/>
     </Segment>
     <Segment id="Component">
-        <Setting id="SPI2" value="CG"/>
         <Setting id="r_bsp" value="FIT"/>
         <Setting id="Config_RTC" value="CG"/>
         <Setting id="Config_S12AD0" value="CG"/>

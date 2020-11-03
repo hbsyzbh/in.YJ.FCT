@@ -18,6 +18,7 @@ unsigned char TestW25(void)
 {
 	unsigned char buf[TST_LEN];
 	int i;
+#if 0
 
 	W25_read(0, buf, TST_LEN);
 	W25_Erase();
@@ -37,6 +38,15 @@ unsigned char TestW25(void)
 	}
 
 	W25_Erase();
+#else
+	W25_Erase();
+	W25_write(0, "UUUUUUUUUU", TST_LEN);
+	while(1)
+	{
+		W25_read(0, buf, TST_LEN);
+		delay(1);
+	}
+#endif
 	return 0;
 }
 
@@ -54,6 +64,12 @@ void TestE2P()
 	}
 }
 
+void TestSPI_ext(void)
+{
+	checkSPI2JEDECID();
+}
+
+
 
 void main(void)
 {
@@ -66,9 +82,10 @@ void main(void)
 	R_UART3_Start();
 
 	//TestW25();
+	//TestE2P();
 
 	while(1)
-		TestE2P();
+		TestSPI_ext();
 
 	while(1) {
 		setD8(1);

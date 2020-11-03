@@ -15,6 +15,7 @@ void setD9(unsigned char on);
 void setD10(unsigned char on);
 
 void checkW25JEDECID(void);
+void checkSPI2JEDECID(void);
 
 void W25_Erase(void);
 void W25_read(unsigned int addr, unsigned char *buf, unsigned char len);
