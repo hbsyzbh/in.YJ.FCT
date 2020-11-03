@@ -68,9 +68,6 @@ typedef enum {
 #define ACK_LEN_POS		(2)
 #define ACK_DATA_POS	(3)
 
-#define ACK_OK	(0xF0)
-#define ACK_NG	(0xFF)
-
 typedef enum {
 	Uart_StartwaitHead,
 	Uart_waittigHead,
@@ -174,8 +171,22 @@ static void analysisCmd()
 		break;
 
 	case Cmd_testSPIFlash:
-		//ackbuff[ACK_DATA_POS] = TestSpiFlash();
+		ackbuff[ACK_DATA_POS] = TestW25();
 		R_UART2_Send(ackbuff, 	ACK_DATA_POS + 1);
+		break;
+
+	case Cmd_testI2CPort:
+		ackbuff[ACK_DATA_POS] = TestE2P();
+		R_UART2_Send(ackbuff, 	ACK_DATA_POS + 1);
+		break;
+
+	case Cmd_testSPIPort:
+		break;
+
+	case Cmd_testU3Out:
+		break;
+
+	case Cmd_testADC:
 		break;
 
 	case Cmd_testLED:
@@ -184,13 +195,9 @@ static void analysisCmd()
 		R_UART2_Send(ackbuff, 	ACK_DATA_POS + 1);
 		break;
 
-	case Cmd_testI2CPort:
-		//ackbuff[ACK_DATA_POS] = TestI2cPort();
-		R_UART2_Send(ackbuff, 	ACK_DATA_POS + 1);
-		break;
 
 	case Cmd_initI2CPort:
-		//ackbuff[ACK_DATA_POS] = InitI2cPort();
+		ackbuff[ACK_DATA_POS] = InitE2P();
 		R_UART2_Send(ackbuff, 	ACK_DATA_POS + 1);
 		break;
 

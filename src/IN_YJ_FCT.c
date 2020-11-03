@@ -18,14 +18,14 @@ unsigned char TestW25(void)
 {
 	unsigned char buf[TST_LEN];
 	int i;
-#if 0
+#if 1
 
 	W25_read(0, buf, TST_LEN);
 	W25_Erase();
 	W25_read(0, buf, TST_LEN);
 	for(i = 0; i < TST_LEN; i++) {
 		if(buf[i] != 0xFF){
-			return 1;
+			return ACK_NG;
 		}
 	}
 
@@ -33,7 +33,7 @@ unsigned char TestW25(void)
 	W25_read(0, buf, TST_LEN);
 	for(i = 0; i < TST_LEN; i++) {
 		if(buf[i] != TstStr[i]) {
-			return 1;
+			return ACK_NG;
 		}
 	}
 
@@ -47,21 +47,30 @@ unsigned char TestW25(void)
 		delay(1);
 	}
 #endif
-	return 0;
+	return ACK_OK;
 }
 
-void TestE2P()
+
+unsigned char TestE2P(void)
 {
 	unsigned char buff[TST_LEN] = {0};
 
-	//write_24AA02E48(0, "1234567890", TST_LEN);
-	//write_24AA02E48(0, "M", 1);
+	read_24AA02E48(0, buff, TST_LEN);
 
-	while(1)
-	{
-		read_24AA02E48(0, buff, TST_LEN);
-		delay(100);
+	for(int i = 0; i < TST_LEN; i++) {
+		if(buff[i] != TstStr[i]) {
+			return ACK_NG;
+		}
 	}
+
+	return ACK_OK;
+}
+
+unsigned char  InitE2P(void)
+{
+	write_24AA02E48(0, TstStr, TST_LEN);
+	delay(1);
+	return TestE2P();
 }
 
 void TestSPI_ext(void)

@@ -8,6 +8,13 @@
 #ifndef MAXDONEYJBIOS_H_
 #define MAXDONEYJBIOS_H_
 
+#define ACK_OK	(0xF0)
+#define ACK_NG	(0xFF)
+
+unsigned char TestW25(void);
+unsigned char TestE2P(void);
+unsigned char InitE2P(void);
+
 void delay(unsigned char time);
 
 void setD8(unsigned char on);

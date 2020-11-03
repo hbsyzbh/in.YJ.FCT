@@ -162,11 +162,43 @@ void checkW25JEDECID(void)
 	SPI_INT(cmd, 4, JedecID);
 }
 
+void waitCanSend(void)
+{
+	unsigned char d;
+
+	for(int i = 0 ; i < 3; i++)
+	{
+		d = 100;
+		while(d--){
+			if(RIIC0.ICSR2.BIT.TDRE) {
+				break;
+			}
+		}
+		delay(1);
+	}
+}
+
+void waitACK(void)
+{
+	unsigned char d;
+
+	for(int i = 0 ; i < 3; i++)
+	{
+		d = 100;
+		while(d--){
+			if(RIIC0.ICSR2.BIT.TEND) {
+				break;
+			}
+		}
+		delay(1);
+	}
+}
+
 void I2C_sendData(unsigned char data)
 {
-	while(! RIIC0.ICSR2.BIT.TDRE);
+	waitCanSend();
 	RIIC0.ICDRT = data;
-	while(! RIIC0.ICSR2.BIT.TEND);
+	waitACK();
 }
 
 void I2C_Start(void)
@@ -198,6 +230,21 @@ void I2C_StartRecvData(unsigned char slaveAddr)
 	RIIC0.ICDRT = (slaveAddr |= 0x01);
 }
 
+static void WaitRevDone()
+{
+	unsigned char d;
+
+	for(int i = 0 ; i < 3; i++)
+	{
+		d = 100;
+		while(d--){
+			if(RIIC0.ICSR2.BIT.RDRF) {
+				break;
+			}
+		}
+		delay(1);
+	}
+}
 
 void read_24AA02E48(unsigned int addr, unsigned char *buf, unsigned char len)
 {
@@ -209,15 +256,16 @@ void read_24AA02E48(unsigned int addr, unsigned char *buf, unsigned char len)
 
 	I2C_StartRecvData(0xA1);
 
+	WaitRevDone();
 	dummy = RIIC0.ICDRR;
 	for(i = 0; i < len; i++)
 	{
-		while(! RIIC0.ICSR2.BIT.RDRF);
+		WaitRevDone();
 		buf[i] = RIIC0.ICDRR;
 	}
 
 	//多读一个 再停止，防止主循环逻辑过于复杂
-	while(!RIIC0.ICSR2.BIT.RDRF);	//ICDRRレジスタに受信データあり
+	WaitRevDone();
 	RIIC0.ICSR2.BIT.STOP = 0;		//ストップコンディション未検出
 	RIIC0.ICCR2.BIT.SP = 1;			//停止条件発行
 	dummy = RIIC0.ICDRR;	//受信した最後のデータ格納
