@@ -13,10 +13,18 @@
 #include "r_cg_rtc.h"
 #include "string.h"
 */
+
+#include "r_smc_entry.h"
+#include "maxdoneYJBios.h"
+
 unsigned char g_i2c_done = 0;
 unsigned char g_u2_sendend = 0;
 unsigned char debug = 0;
 
+static void R_UART2_Receive(unsigned char * revBuff, unsigned char len)
+{
+	R_UART_Serial_Receive(revBuff, len);
+}
 
 static void R_UART2_Send(unsigned char * const tx_buf, unsigned char tx_num)
 {
@@ -42,10 +50,12 @@ typedef enum {
 	Cmd_getRTC,
 	Cmd_testSPIFlash,
 	Cmd_testI2CPort,
-	Cmd_testRF 			= 5,
-	Cmd_testI2CE2prom,
-	Cmd_testEthernet,
+	Cmd_testSPIPort 			= 5,
+	Cmd_testU3Out,
+	Cmd_testADC,
 	Cmd_testLED,
+	Cmd_testLight,
+	Cmd_testStatus				= 10,
 
 	Cmd_FCTVer = 0xF2,
 	Cmd_enterRFPingPong = 0xF3,
@@ -91,6 +101,8 @@ static char isCmdDatalenValied()
 			break;
 
 		case Cmd_testLED:
+		case Cmd_testU3Out:
+		case Cmd_testLight:
 			return datalen == 1;
 			break;
 
@@ -106,66 +118,59 @@ const unsigned char FCTVerMajor = 0x01;
 const unsigned char FCTVerSub = 0x00;
 
 const unsigned char notsupport[] = {0x40, 0, 0};
-const unsigned char hardwareType[] = {ACK_HEAD, 0, 1, 0x0C};
+const unsigned char hardwareType[9] = {ACK_HEAD, 0, 6, 2, 0, 1, 2, 4, 9};
 unsigned char ackbuff[16] = {ACK_HEAD, 0};
 
-/*
-static void fillRTCRespBuf()
+
+static void fillRTCRespBuf(rtc_calendarcounter_value_t *p)
 {
-	ackbuff[ACK_DATA_POS+0] = value.year;
-	ackbuff[ACK_DATA_POS+1] = value.month;
-	ackbuff[ACK_DATA_POS+2] = value.day;
-	ackbuff[ACK_DATA_POS+3] = value.hour;
-	ackbuff[ACK_DATA_POS+4] = value.min;
-	ackbuff[ACK_DATA_POS+5] = value.sec;
+	ackbuff[ACK_DATA_POS+0] = p->ryrcnt		;
+	ackbuff[ACK_DATA_POS+1] = p->rmoncnt	;
+	ackbuff[ACK_DATA_POS+2] = p->rdaycnt	;
+	ackbuff[ACK_DATA_POS+3] = p->rhrcnt		;
+	ackbuff[ACK_DATA_POS+4] = p->rmincnt	;
+	ackbuff[ACK_DATA_POS+5] = p->rseccnt	;
 }
 
-static void fillRTCRespValue()
+static void getRTCValueFormCmd(rtc_calendarcounter_value_t *p)
 {
-	value.year = revBuff[ACK_DATA_POS+0];
-	value.month = revBuff[ACK_DATA_POS+1];
-	value.day = revBuff[ACK_DATA_POS+2];
-	value.hour = revBuff[ACK_DATA_POS+3];
-	value.min = revBuff[ACK_DATA_POS+4];
-	value.sec = revBuff[ACK_DATA_POS+5];
+	p->ryrcnt	= revBuff[ACK_DATA_POS+0];
+	p->rmoncnt	= revBuff[ACK_DATA_POS+1];
+	p->rdaycnt	= revBuff[ACK_DATA_POS+2];
+	p->rhrcnt	= revBuff[ACK_DATA_POS+3];
+	p->rmincnt	= revBuff[ACK_DATA_POS+4];
+	p->rseccnt	= revBuff[ACK_DATA_POS+5];
+    //uint8_t rwkcnt;
 }
-*/
 
 static void analysisCmd()
 {
+	rtc_calendarcounter_value_t counter_write_val;
 
 	ackbuff[ACK_CMD_POS] = cmd;
 	ackbuff[ACK_LEN_POS] = 1;
 
 	switch(cmd) {
 	case Cmd_getType:
-		R_UART2_Send(hardwareType, 4);
+		R_UART2_Send(hardwareType, 9);
 		break;
 	case Cmd_syncRTC:
-		/*
-		//R_UART2_Send(hardwareType, 4);
-		fillRTCRespValue();
-		if(MD_OK == R_RTC_Set_CounterValue(value))
-		{
-			fillRTCRespBuf();
-			R_UART2_Send(ackbuff, 	ACK_DATA_POS+6);
-		} else {
-			R_UART2_Send(notsupport, 3);
-		}
-		*/
+
+		getRTCValueFormCmd(&counter_write_val);
+		R_Config_RTC_Restart(counter_write_val);
+		fillRTCRespBuf(&counter_write_val);
+		R_UART2_Send(ackbuff, 	ACK_DATA_POS+6);
 		break;
 
 	case Cmd_getRTC:
-		/*
+
 		ackbuff[ACK_LEN_POS] = 6;
-		if(MD_OK ==	R_RTC_Get_CounterValue(&value))
-		{
-			fillRTCRespBuf();
-		} else {
-			memset(&ackbuff[ACK_DATA_POS], 0, 6);
-		}
+		memset(&ackbuff[ACK_DATA_POS], 0, 6);
+
+		R_Config_RTC_Get_CalendarCounterValue(&counter_write_val);
+
+		fillRTCRespBuf(&counter_write_val);
 		R_UART2_Send(ackbuff, 	ACK_DATA_POS+6);
-		*/
 		break;
 
 	case Cmd_testSPIFlash:
@@ -186,11 +191,6 @@ static void analysisCmd()
 
 	case Cmd_initI2CPort:
 		//ackbuff[ACK_DATA_POS] = InitI2cPort();
-		R_UART2_Send(ackbuff, 	ACK_DATA_POS + 1);
-		break;
-
-	case Cmd_testRF:
-		//ackbuff[ACK_DATA_POS] = TestMRF89XA();
 		R_UART2_Send(ackbuff, 	ACK_DATA_POS + 1);
 		break;
 
@@ -215,16 +215,16 @@ void doUartTask()
 	switch(UartState)
 	{
 		case Uart_StartwaitHead:
-			//R_UART2_Receive(revBuff, 1);
+			R_UART2_Receive(revBuff, 1);
 			UartState++;
 			break;
 		case Uart_revHeadStartwaitlen:
-			//R_UART2_Receive(&revBuff[1], 2);
+			R_UART2_Receive(&revBuff[1], 2);
 			UartState++;
 			break;
 		case Uart_revlenStartwaitData:
 			if(datalen > 0 ) {
-				//R_UART2_Receive(&revBuff[3], datalen);
+				R_UART2_Receive(&revBuff[3], datalen);
 				UartState++;
 			}
 			break;

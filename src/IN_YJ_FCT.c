@@ -69,23 +69,13 @@ void TestSPI_ext(void)
 	checkSPI2JEDECID();
 }
 
-
-
-void main(void)
+void debugFunc(void)
 {
-	R_Systeminit();
-	R_Pins_Create();
-
-
-	R_UART_Start();
-	R_UART2_Start();
-	R_UART3_Start();
-
 	//TestW25();
 	//TestE2P();
 
-	while(1)
-		TestSPI_ext();
+	//while(1)
+	//TestSPI_ext();
 
 	while(1) {
 		setD8(1);
@@ -103,4 +93,20 @@ void main(void)
 		delay(10);
 		checkW25JEDECID();
 	}
+}
+
+void main(void)
+{
+	R_Systeminit();
+	R_Pins_Create();
+
+	R_Config_RTC_Start();
+	R_UART_Start();
+	R_UART2_Start();
+	R_UART3_Start();
+
+	//debugFunc();
+
+	while(1)
+		doUartTask();
 }

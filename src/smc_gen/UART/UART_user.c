@@ -173,6 +173,7 @@ static void r_UART_callback_transmitend(void)
 static void r_UART_callback_receiveend(void)
 {
     /* Start user code for r_UART_callback_receiveend. Do not edit comment generated here */
+	on_uart2_receiveend();
     /* End user code. Do not edit comment generated here */
 }
 
