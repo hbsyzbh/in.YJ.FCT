@@ -73,9 +73,20 @@ unsigned char  InitE2P(void)
 	return TestE2P();
 }
 
-void TestSPI_ext(void)
+unsigned char TestSPI_ext(void)
 {
-	checkSPI2JEDECID();
+	//checkSPI2JEDECID();
+
+	unsigned char cmd[4] = {0x9f, 0x9f, 0x9f, 0x9f};
+	unsigned char JedecID[4] = {0};
+
+	SPI2_COM(cmd, JedecID, 4);
+
+	if( JedecID[1] == 0x1F ) {
+		return ACK_OK;
+	}
+
+	return ACK_NG;
 }
 
 void debugFunc(void)

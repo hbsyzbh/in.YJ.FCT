@@ -14,6 +14,7 @@
 unsigned char TestW25(void);
 unsigned char TestE2P(void);
 unsigned char InitE2P(void);
+unsigned char TestSPI_ext(void);
 
 void delay(unsigned char time);
 

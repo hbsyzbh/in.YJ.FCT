@@ -181,6 +181,8 @@ static void analysisCmd()
 		break;
 
 	case Cmd_testSPIPort:
+		ackbuff[ACK_DATA_POS] = TestSPI_ext();
+		R_UART2_Send(ackbuff, 	ACK_DATA_POS + 1);
 		break;
 
 	case Cmd_testU3Out:
