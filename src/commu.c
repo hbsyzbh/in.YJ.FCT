@@ -201,6 +201,9 @@ static void analysisCmd()
 		break;
 
 	case Cmd_testU3Out:
+		SetU3(revBuff[ACK_DATA_POS]);
+		ackbuff[ACK_DATA_POS] = revBuff[ACK_DATA_POS];
+		R_UART2_Send(ackbuff, 	ACK_DATA_POS + 1);
 		break;
 
 	case Cmd_testADC:
@@ -219,6 +222,7 @@ static void analysisCmd()
 		break;
 
 	case Cmd_testStatus:
+		ackbuff[ACK_LEN_POS] = 4;
 		ackbuff[ACK_DATA_POS + 0] = getFlow_noFlow();
 		ackbuff[ACK_DATA_POS + 1] = getHiStatus();
 		ackbuff[ACK_DATA_POS + 2] = getRegStatus();

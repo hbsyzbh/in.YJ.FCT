@@ -27,6 +27,7 @@ void setBLUE(unsigned char on);
 void setGREEN(unsigned char on);
 void setLIGHT(unsigned char on);
 
+void SetU3(unsigned char v);
 
 unsigned char getFlow_noFlow(void);
 unsigned char getHiStatus(void);

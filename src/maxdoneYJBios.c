@@ -113,6 +113,11 @@ void Set_595(unsigned char Q595)
 	SPI_595(tx_buf, 1, 0);
 }
 
+void SetU3(unsigned char u3)
+{
+	Set_595(u3 << 1);
+}
+
 void SPI_INT_Done(void)
 {
 	SPI_INT_DONE_FLAG = 1;
