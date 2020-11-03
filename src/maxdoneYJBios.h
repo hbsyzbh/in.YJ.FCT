@@ -27,6 +27,12 @@ void setBLUE(unsigned char on);
 void setGREEN(unsigned char on);
 void setLIGHT(unsigned char on);
 
+
+unsigned char getFlow_noFlow(void);
+unsigned char getHiStatus(void);
+unsigned char getRegStatus(void);
+unsigned char getDiagNoSti_in_flo(void);
+
 void checkW25JEDECID(void);
 void checkSPI2JEDECID(void);
 

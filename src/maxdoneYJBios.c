@@ -55,6 +55,26 @@ void setLIGHT(unsigned char on)
 	PORTB.PODR.BIT.B1  = on ? 1 : 0;
 }
 
+
+unsigned char getFlow_noFlow(void)
+{
+	return PORT5.PIDR.BIT.B4 != 0;
+}
+
+unsigned char getHiStatus(void)
+{
+	return PORTB.PIDR.BIT.B7 != 0;
+}
+
+unsigned char getRegStatus(void){
+	return PORTB.PIDR.BIT.B6 != 0;
+}
+
+unsigned char getDiagNoSti_in_flo(void){
+	return PORTA.PIDR.BIT.B4 != 0;
+}
+
+
 unsigned char SPI_INT_DONE_FLAG = 0;
 void SPI_COMMU(unsigned char * const tx_buf, unsigned char tx_num, unsigned char * const rx_buf, unsigned char channel)
 {

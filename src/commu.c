@@ -218,6 +218,14 @@ static void analysisCmd()
 		R_UART2_Send(ackbuff, 	ACK_DATA_POS + 1);
 		break;
 
+	case Cmd_testStatus:
+		ackbuff[ACK_DATA_POS + 0] = getFlow_noFlow();
+		ackbuff[ACK_DATA_POS + 1] = getHiStatus();
+		ackbuff[ACK_DATA_POS + 2] = getRegStatus();
+		ackbuff[ACK_DATA_POS + 3] = getDiagNoSti_in_flo();
+		R_UART2_Send(ackbuff, 	ACK_DATA_POS + 4);
+		break;
+
 
 	case Cmd_initI2CPort:
 		ackbuff[ACK_DATA_POS] = InitE2P();
