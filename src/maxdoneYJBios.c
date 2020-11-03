@@ -22,17 +22,17 @@ void delay(unsigned char time)
 
 void setD8(unsigned char on)
 {
-	PORTH.PODR.BIT.B3 = on > 0 ? 1 : 0;
+	PORTH.PODR.BIT.B3 = on  ? 0 : 1;
 }
 
 void setD9(unsigned char on)
 {
-	PORTH.PODR.BIT.B1 = on > 0 ? 1 : 0;
+	PORTH.PODR.BIT.B1 = on ? 0 : 1;
 }
 
 void setD10(unsigned char on)
 {
-	PORT5.PODR.BIT.B5 = on > 0 ? 1 : 0;
+	PORT5.PODR.BIT.B5 = on ? 0 : 1;
 }
 
 unsigned char SPI_INT_DONE_FLAG = 0;

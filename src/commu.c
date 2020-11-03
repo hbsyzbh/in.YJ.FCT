@@ -140,6 +140,13 @@ static void getRTCValueFormCmd(rtc_calendarcounter_value_t *p)
     //uint8_t rwkcnt;
 }
 
+void SetLed(unsigned char v)
+{
+	setD8 ((v & 0x01) == 0x01);
+	setD9 ((v & 0x02) == 0x02);
+	setD10((v & 0x04) == 0x04);
+}
+
 static void analysisCmd()
 {
 	rtc_calendarcounter_value_t counter_write_val;
@@ -192,8 +199,8 @@ static void analysisCmd()
 		break;
 
 	case Cmd_testLED:
-		//SetLed(revBuff[ACK_DATA_POS]);
-		//ackbuff[ACK_DATA_POS] = revBuff[ACK_DATA_POS];
+		SetLed(revBuff[ACK_DATA_POS]);
+		ackbuff[ACK_DATA_POS] = revBuff[ACK_DATA_POS];
 		R_UART2_Send(ackbuff, 	ACK_DATA_POS + 1);
 		break;
 
