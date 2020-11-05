@@ -2995,7 +2995,7 @@
                         <item id="MSB" input="" vlaue="0"/>
                         <item id="LSB" input="" vlaue="0"/>
                     </option>
-                    <option enabled="true" id="CPha" selection="Odd">
+                    <option enabled="true" id="CPha" selection="Even">
                         <item id="Odd" input="" vlaue="0"/>
                         <item id="Even" input="" vlaue="0"/>
                     </option>
@@ -3009,7 +3009,7 @@
                         <item id="Div4" input="" vlaue="0"/>
                         <item id="Div8" input="" vlaue="0"/>
                     </option>
-                    <option enabled="true" id="SLAssert" selection="SSL2">
+                    <option enabled="true" id="SLAssert" selection="SSL0">
                         <item id="SSL0" input="" vlaue="0"/>
                         <item id="SSL1" input="" vlaue="0"/>
                         <item id="SSL2" input="" vlaue="0"/>
@@ -3019,15 +3019,15 @@
                         <item id="SLNegate" input="" vlaue="0"/>
                         <item id="SLKeep" input="" vlaue="0"/>
                     </option>
-                    <option enabled="true" id="ClkDelay" selection="SPCKD">
+                    <option enabled="true" id="ClkDelay" selection="1RSPCK">
                         <item id="1RSPCK" input="" vlaue="0"/>
                         <item id="SPCKD" input="" vlaue="0"/>
                     </option>
-                    <option enabled="true" id="NegateDelay" selection="SSLND">
+                    <option enabled="true" id="NegateDelay" selection="1RSPCK">
                         <item id="1RSPCK" input="" vlaue="0"/>
                         <item id="SSLND" input="" vlaue="0"/>
                     </option>
-                    <option enabled="true" id="NextDelay" selection="SPND">
+                    <option enabled="true" id="NextDelay" selection="1RSPCK2PCLK">
                         <item id="1RSPCK2PCLK" input="" vlaue="0"/>
                         <item id="SPND" input="" vlaue="0"/>
                     </option>

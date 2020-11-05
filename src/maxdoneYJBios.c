@@ -78,6 +78,7 @@ unsigned char getDiagNoSti_in_flo(void){
 unsigned char SPI_INT_DONE_FLAG = 0;
 void SPI_COMMU(unsigned char * const tx_buf, unsigned char tx_num, unsigned char * const rx_buf, unsigned char channel)
 {
+	RSPI0.SPCR.BIT.SPE = 0U;
 	RSPI0.SPCMD0.BIT.SSLA = channel;
 	RSPI0.SPCR.BIT.SPE = 1U;
 
@@ -141,7 +142,7 @@ static unsigned char W25_readStatus(void)
 	return ret[1];
 }
 
-static void checkWriteDone(void)
+void checkWriteDone(void)
 {
 	unsigned short times;
 

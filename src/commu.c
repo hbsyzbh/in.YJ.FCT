@@ -265,6 +265,12 @@ static void analysisCmd()
 
 void doUartTask()
 {
+	while(0){
+		checkWriteDone();
+		delay(1);
+	}
+
+
 	switch(UartState)
 	{
 		case Uart_StartwaitHead:
