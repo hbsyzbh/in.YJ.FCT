@@ -80,6 +80,7 @@ void SPI_COMMU(unsigned char * const tx_buf, unsigned char tx_num, unsigned char
 {
 	RSPI0.SPCR.BIT.SPE = 0U;
 	RSPI0.SPCMD0.BIT.SSLA = channel;
+	RSPI0.SPSR.BYTE = 0u;
 	RSPI0.SPCR.BIT.SPE = 1U;
 
 	 for(int i = 0; i < tx_num; i++)
