@@ -145,13 +145,13 @@ static void checkWriteDone(void)
 {
 	unsigned short times;
 
-	for(times = 0; times < 5000; times++)
+	for(times = 0; times < 500; times++)
 	{
 
 		if((W25_readStatus() & 0x01) == 0x00)
 			return;
 
-		delay(50);
+		delay(1);
 	}
 }
 
@@ -444,3 +444,14 @@ void checkSPI2JEDECID(void)
 	}
 }
 
+void getAdcVoltage(unsigned char channel, unsigned char *integer, unsigned char *digit)
+{
+	unsigned short raw_value;
+	unsigned long voltage100x;
+	R_Config_S12AD0_Start();
+
+	R_Config_S12AD0_Get_ValueResult(channel, &raw_value);
+	voltage100x = raw_value * 330;
+	*integer = voltage100x / 100;
+	*digit = voltage100x % 100;
+}

@@ -22,7 +22,7 @@
 * Version      : 1.1.102
 * Device(s)    : R5F51306AxFK
 * Description  : General header file for RSPI peripheral.
-* Creation Date: 2020-11-03
+* Creation Date: 2020-11-05
 ***********************************************************************************************************************/
 
 #ifndef RSPI_H

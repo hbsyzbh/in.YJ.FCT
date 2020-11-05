@@ -22,7 +22,7 @@
 * Version      : 1.7.1
 * Device(s)    : R5F51306AxFK
 * Description  : This file implements device driver for SPI.
-* Creation Date: 2020-11-03
+* Creation Date: 2020-11-05
 ***********************************************************************************************************************/
 
 /***********************************************************************************************************************
@@ -75,8 +75,9 @@ void R_SPI_Create(void)
     RSPI0.SPCR.BIT.SPE = 0U;
 
     /* Set control registers */
-    RSPI0.SSLP.BYTE = _00_RSPI_SSL2_POLARITY_LOW;
-    RSPI0.SPPCR.BYTE = _00_RSPI_MOSI_FIXING_PREV_TRANSFER | _00_RSPI_LOOPBACK_DISABLED | _00_RSPI_LOOPBACK2_DISABLED;
+    RSPI0.SSLP.BYTE = _00_RSPI_SSL0_POLARITY_LOW | _00_RSPI_SSL2_POLARITY_LOW;
+    RSPI0.SPPCR.BYTE = _20_RSPI_MOSI_FIXING_MOIFV_BIT | _10_RSPI_MOSI_LEVEL_HIGH | _00_RSPI_LOOPBACK_DISABLED | 
+                       _00_RSPI_LOOPBACK2_DISABLED;
     RSPI0.SPBR = _0F_RSPI0_DIVISOR;
     RSPI0.SPDCR.BYTE = _00_RSPI_ACCESS_WORD | _00_RSPI_FRAMES_1;
     RSPI0.SPCKD.BYTE = _00_RSPI_RSPCK_DELAY_1;
@@ -84,7 +85,7 @@ void R_SPI_Create(void)
     RSPI0.SPND.BYTE = _00_RSPI_NEXT_ACCESS_DELAY_1;
     RSPI0.SPCR2.BYTE = _00_RSPI_PARITY_DISABLE | _00_RSPI_AUTO_STOP_DISABLED;
     RSPI0.SPSCR.BYTE = _00_RSPI_SEQUENCE_LENGTH_1;
-    RSPI0.SPCMD0.WORD = _0001_RSPI_RSPCK_SAMPLING_EVEN | _0002_RSPI_RSPCK_POLARITY_HIGH | _000C_RSPI_BASE_BITRATE_8 | 
+    RSPI0.SPCMD0.WORD = _0000_RSPI_RSPCK_SAMPLING_ODD | _0002_RSPI_RSPCK_POLARITY_HIGH | _0000_RSPI_BASE_BITRATE_1 | 
                         _0020_RSPI_SIGNAL_ASSERT_SSL2 | _0080_RSPI_SSL_KEEP_ENABLE | _0400_RSPI_DATA_LENGTH_BITS_8 | 
                         _0000_RSPI_MSB_FIRST | _2000_RSPI_NEXT_ACCESS_DELAY_ENABLE | 
                         _4000_RSPI_NEGATION_DELAY_ENABLE | _8000_RSPI_RSPCK_DELAY_ENABLE;
@@ -106,6 +107,11 @@ void R_SPI_Create(void)
     MPC.PC7PFS.BYTE = 0x0DU;
     PORTC.ODR1.BYTE &= 0xBFU;
     PORTC.PMR.BYTE |= 0x80U;
+
+    /* Set SSLA0 pin */
+    MPC.PC4PFS.BYTE = 0x0DU;
+    PORTC.ODR1.BYTE &= 0xFEU;
+    PORTC.PMR.BYTE |= 0x10U;
 
     /* Set SSLA2 pin */
     MPC.PA1PFS.BYTE = 0x0DU;

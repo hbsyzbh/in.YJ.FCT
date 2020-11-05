@@ -22,7 +22,7 @@
 * Version      : 1.7.1
 * Device(s)    : R5F51306AxFK
 * Description  : This file implements device driver for SPI.
-* Creation Date: 2020-11-03
+* Creation Date: 2020-11-05
 ***********************************************************************************************************************/
 
 #ifndef CFG_SPI_H

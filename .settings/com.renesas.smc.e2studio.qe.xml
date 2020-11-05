@@ -11,7 +11,7 @@
         <Setting id="P26" value="TXD1"/>
         <Setting id="MD" value="MD"/>
         <Setting id="PC2" value="RXD5"/>
-        <Setting id="PC4" value="PC4"/>
+        <Setting id="PC4" value="SSLA0"/>
         <Setting id="PC3" value="TXD5"/>
         <Setting id="PC6" value="MOSIA"/>
         <Setting id="PC5" value="RSPCKA"/>

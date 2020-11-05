@@ -207,6 +207,17 @@ static void analysisCmd()
 		break;
 
 	case Cmd_testADC:
+		{
+			unsigned char channel;
+			unsigned char interger, digit;
+
+			ackbuff[ACK_LEN_POS] = 3;
+			channel = ackbuff[ACK_DATA_POS + 0] = revBuff[ACK_DATA_POS];
+			getAdcVoltage(channel, &interger, &digit);
+			ackbuff[ACK_DATA_POS + 1] = interger;
+			ackbuff[ACK_DATA_POS + 2] = digit;
+			R_UART2_Send(ackbuff, 	ACK_DATA_POS + 3);
+		}
 		break;
 
 	case Cmd_testLED:
