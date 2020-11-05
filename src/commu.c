@@ -100,6 +100,7 @@ static char isCmdDatalenValied()
 		case Cmd_testLED:
 		case Cmd_testU3Out:
 		case Cmd_testLight:
+		case Cmd_testADC:
 			return datalen == 1;
 			break;
 
@@ -265,12 +266,6 @@ static void analysisCmd()
 
 void doUartTask()
 {
-	while(0){
-		checkWriteDone();
-		delay(1);
-	}
-
-
 	switch(UartState)
 	{
 		case Uart_StartwaitHead:

@@ -446,14 +446,28 @@ void checkSPI2JEDECID(void)
 	}
 }
 
+void waitADCDone(void)
+{
+	unsigned char d = 100;
+	S12AD.ADCSR.BIT.ADST = 1U;
+
+	while(d--) {
+		if(S12AD.ADCSR.BIT.ADST)
+			delay(1);
+		else
+			break;
+	}
+}
+
 void getAdcVoltage(unsigned char channel, unsigned char *integer, unsigned char *digit)
 {
 	unsigned short raw_value;
 	unsigned long voltage100x;
-	R_Config_S12AD0_Start();
+
+	waitADCDone();
 
 	R_Config_S12AD0_Get_ValueResult(channel, &raw_value);
-	voltage100x = raw_value * 330;
+	voltage100x = raw_value * 330 / 4096;
 	*integer = voltage100x / 100;
 	*digit = voltage100x % 100;
 }
