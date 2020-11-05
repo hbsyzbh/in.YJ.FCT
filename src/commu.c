@@ -112,8 +112,8 @@ static char isCmdDatalenValied()
 	return 0;
 }
 
-const unsigned char FCTVerMajor = 0x01;
-const unsigned char FCTVerSub = 0x00;
+const unsigned char FCTVerMajor = 0x00;
+const unsigned char FCTVerSub = 0x02;
 
 const unsigned char notsupport[] = {0x40, 0, 0};
 const unsigned char hardwareType[9] = {ACK_HEAD, 0, 6, 2, 0, 1, 2, 4, 9};
